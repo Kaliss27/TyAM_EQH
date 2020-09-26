@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyStartApp</string>
+    <string name="_180">180°</string>
+    <string name="my_photos">Funciones</string>
+    <string name="Funciones">Funciones</string>
+    <string name="SIN">SIN</string>
+    <string name="COS">COS</string>
+    <string name="TAN">TAN</string>
+    <string name="Resultado">Resultado</string>
+    <string name="Grados">Grados</string>
+</resources>
