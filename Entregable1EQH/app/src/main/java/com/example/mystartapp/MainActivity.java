@@ -21,7 +21,8 @@ public class MainActivity extends Activity
     String func;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imagenA=findViewById(R.id.image_view);
@@ -30,10 +31,14 @@ public class MainActivity extends Activity
         resultado=findViewById(R.id.res_text_view);
         resul = Double.valueOf(0);
         mag_ang=Double.valueOf(0);
-        funciones.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+        funciones.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                switch (checkedId)
+                {
                     case R.id.sin_radio_button:
                         System.out.println("seno");
                         func="sen";
@@ -46,19 +51,23 @@ public class MainActivity extends Activity
                         System.out.println("tangente");
                         func="tan";
                         break;
-
                 }
                 bndf=true;
             }
         });
-        angulos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+        angulos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(!bndf){
-                    Toast.makeText(getBaseContext(),"Seleccione una función",Toast.LENGTH_LONG).show();
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                if(!bndf)
+                {
+                    Toast.makeText(getBaseContext(),"Seleccione la función trigonométrica.",Toast.LENGTH_LONG).show();
                     return;
                 }
-                switch (checkedId){
+                switch (checkedId)
+                {
                     case R.id.cua_radio_button:
                         System.out.println("45");
                         imagenA.setImageResource(R.drawable.angulo45);
@@ -77,58 +86,66 @@ public class MainActivity extends Activity
                         mag_ang=convARadian(180.0);
                         resul=calcularFuncion(mag_ang,func);
                         break;
-
                 }
-                if(bndt){
+                if(bndt)
+                {
                     return;
                 }
                 resultado.setText(resul.toString());
             }
         });
-
     }
-    private Double convARadian(Double ang){
+
+    private Double convARadian(Double ang)
+    {
         System.out.println(ang*(Math.PI/180));
         return ang*(Math.PI/180);
     }
-    private Double convAG(Double angr){
+
+    private Double convAG(Double angr)
+    {
         System.out.println(angr*(180/Math.PI));
         return angr*(180/Math.PI);
     }
 
-     private Double calcularFuncion(Double angulo, String funcionn){
+    private Double calcularFuncion(Double angulo, String funcionn)
+    {
         Double cal = 0.0;
         bndt=false;
-        if(funcionn.equals("sen")){
+        if(funcionn.equals("sen"))
+        {
             //System.out.println("sen");
             cal=Math.sin(angulo);
             System.out.println(cal);
             if(convAG(angulo)==180)
                 return Math.floor(cal);
         }
-         if(funcionn.equals("cos")){
-             //System.out.println("cos");
-             cal=Math.cos(angulo);
-             System.out.println(cal);
-             if(convAG(angulo)==90)
-                 return Math.floor(cal);
-         }
-         if(funcionn.equals("tan")){
-             //System.out.println("tan");
-             cal=Math.tan(angulo);
-             System.out.println(cal);
-             if(convAG(angulo)==45)
-                 return Math.ceil(cal);
-             if(convAG(angulo)==90)
-             {
-                 resultado.setText("Math Error");
-                 bndt=true;
-                 return 0.0;
-             }
-             if(convAG(angulo)==180)
-                 return Math.abs(Math.ceil(cal));
-         }
-         System.out.println(cal);
-         return cal;
+        if(funcionn.equals("cos"))
+        {
+            //System.out.println("cos");
+            cal=Math.cos(angulo);
+            System.out.println(cal);
+            if(convAG(angulo)==90)
+                return Math.floor(cal);
+        }
+        if(funcionn.equals("tan"))
+        {
+            //System.out.println("tan");
+            cal=Math.tan(angulo);
+            System.out.println(cal);
+            if(convAG(angulo)==45)
+                return Math.ceil(cal);
+            if(convAG(angulo)==90)
+            {
+                resultado.setText("Math Error");
+                bndt=true;
+                return 0.0;
+            }
+            if(convAG(angulo)==180)
+                return Math.abs(Math.ceil(cal));
+        }
+        System.out.println(cal);
+        return cal;
     }
 }
+
