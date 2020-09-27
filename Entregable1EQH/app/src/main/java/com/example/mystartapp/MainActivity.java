@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.lang.Math;
 import androidx.annotation.Nullable;
 
