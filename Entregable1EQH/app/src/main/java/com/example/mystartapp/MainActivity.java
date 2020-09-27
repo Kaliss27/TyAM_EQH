@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.lang.Math;
 import androidx.annotation.Nullable;
 
@@ -15,6 +17,7 @@ public class MainActivity extends Activity
     private ImageView imagenA;
     private TextView resultado;
     private Double mag_ang,resul;
+    private Boolean bndf=false,bndt=false;
     String func;
 
     @Override
@@ -45,11 +48,16 @@ public class MainActivity extends Activity
                         break;
 
                 }
+                bndf=true;
             }
         });
         angulos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(!bndf){
+                    Toast.makeText(getBaseContext(),"Seleccione una función",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 switch (checkedId){
                     case R.id.cua_radio_button:
                         System.out.println("45");
@@ -71,7 +79,9 @@ public class MainActivity extends Activity
                         break;
 
                 }
-                System.out.println(resul);
+                if(bndt){
+                    return;
+                }
                 resultado.setText(resul.toString());
             }
         });
@@ -88,18 +98,37 @@ public class MainActivity extends Activity
 
      private Double calcularFuncion(Double angulo, String funcionn){
         Double cal = 0.0;
+        bndt=false;
         if(funcionn.equals("sen")){
-            System.out.println("sen");
+            //System.out.println("sen");
             cal=Math.sin(angulo);
+            System.out.println(cal);
+            if(convAG(angulo)==180)
+                return Math.floor(cal);
         }
          if(funcionn.equals("cos")){
-             System.out.println("cos");
+             //System.out.println("cos");
              cal=Math.cos(angulo);
+             System.out.println(cal);
+             if(convAG(angulo)==90)
+                 return Math.floor(cal);
          }
          if(funcionn.equals("tan")){
-             System.out.println("tan");
+             //System.out.println("tan");
              cal=Math.tan(angulo);
+             System.out.println(cal);
+             if(convAG(angulo)==45)
+                 return Math.ceil(cal);
+             if(convAG(angulo)==90)
+             {
+                 resultado.setText("Math Error");
+                 bndt=true;
+                 return 0.0;
+             }
+             if(convAG(angulo)==180)
+                 return Math.abs(Math.ceil(cal));
          }
+         System.out.println(cal);
          return cal;
     }
 }
