@@ -4,38 +4,38 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import java.io.IOException;
 
-public class MainActivity extends Activity
-{
+public class MainActivity extends Activity {
     MediaPlayer player;
     Thread posThread;
-
+    SeekBar sbProgress;
     @Override
-    protected void onCreate (@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate (@Nullable Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_main);
-        SeekBar sbProgress = findViewById (R.id.sbProgress);
+
+        sbProgress = findViewById (R.id.sbProgress);
 
         player = new MediaPlayer ();
-        player.setOnPreparedListener (mediaPlayer ->
-        {
+        player.setOnPreparedListener (mediaPlayer -> {
             sbProgress.setMax (mediaPlayer.getDuration ());
             mediaPlayer.start ();
-            mediaPlayer.getCurrentPosition();
         });
 
         Button btnAudio1 = findViewById (R.id.btnAudio1);
-        btnAudio1.setOnClickListener (v ->
-        {
+        btnAudio1.setOnClickListener (v -> {
 
-            if (player.isPlaying ())
-            {
+            if (player.isPlaying ()) {
                 player.stop();
                 player.seekTo(0);
                 sbProgress.setProgress(0);
@@ -43,20 +43,37 @@ public class MainActivity extends Activity
 
             Uri mediaUri = Uri.parse ("android.resource://" + getBaseContext ().getPackageName () + "/" + R.raw.mr_blue_sky);
 
-            try
-            {
+            try {
                 player.setDataSource(getBaseContext(), mediaUri);
                 player.prepare ();
                 Toast.makeText (getApplicationContext (), "Now playing: Mr. Blue Sky", Toast.LENGTH_LONG).show ();
             } catch (IOException ex) { ex.printStackTrace (); }
 
         });
+        sbProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(fromUser){
+                    player.seekTo(progress);
+                    sbProgress.setProgress(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         Button btnAudio2 = findViewById (R.id.btnAudio2);
-        btnAudio2.setOnClickListener (v ->
-        {
-            if (player.isPlaying ())
-            {
+        btnAudio2.setOnClickListener (v -> {
+
+            if (player.isPlaying ()) {
                 player.stop();
                 player.seekTo(0);
                 sbProgress.setProgress(0);
@@ -64,53 +81,64 @@ public class MainActivity extends Activity
 
             Uri mediaUri = Uri.parse ("android.resource://" + getBaseContext ().getPackageName () + "/" + R.raw.lake_shore_drive);
 
-            try
-            {
+            try {
                 player.setDataSource(getBaseContext(), mediaUri);
                 player.prepare ();
                 Toast.makeText (getApplicationContext (), "Now playing: Lake Shoe Drive", Toast.LENGTH_LONG).show ();
             } catch (IOException ex) { ex.printStackTrace (); }
+
         });
 
         Button btnAudio3 = findViewById (R.id.btnAudio3);
-        btnAudio3.setOnClickListener (v ->
-        {
-            if (player.isPlaying ())
-            {
-                /*int progress = 0;
-                int duration = player.getDuration();
-                while(player != null && progress < duration)
-                {*/
-                    player.stop();
-                    player.seekTo(0);
-                    //progress = player.getCurrentPosition();
-                //}
-                sbProgress.setProgress(0);
+        btnAudio3.setOnClickListener (v -> {
+
+            if (player.isPlaying ()) {
+                player.stop ();
+                player.seekTo (0);
+                sbProgress.setProgress (0);
             }
 
             Uri mediaUri = Uri.parse ("android.resource://" + getBaseContext ().getPackageName () + "/" + R.raw.fox_on_the_run);
 
-            try
-            {
+            try {
                 player.setDataSource(getBaseContext(), mediaUri);
                 player.prepare ();
                 Toast.makeText (getApplicationContext (), "Now playing: Fox On The Run", Toast.LENGTH_LONG).show ();
             } catch (IOException ex) { ex.printStackTrace (); }
+
         });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(player!=null){
+                    Message msg = new Message();
+                    msg.what = player.getCurrentPosition();
+                    handler.sendMessage(msg);
+                }
+            }
+        }).start();
+
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         // cleanup
         super.onStop();
-        if (player.isPlaying ())
-        {
+        if (player.isPlaying ()) {
             player.stop ();
             player.release ();
         }
 
         player = null;
     }
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            int cp=msg.what;
+            sbProgress.setProgress(cp);
+            return ;
+        }
+    };
 }
