@@ -1,15 +1,17 @@
 package com.example.entregable2eqh;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.IOException;
@@ -17,7 +19,6 @@ import java.io.IOException;
 public class MainActivity extends Activity
 {
     MediaPlayer player;
-    Thread posThread;
     Runnable runnable;
     SeekBar sbProgress;
     Handler handler;
@@ -28,9 +29,9 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         sbProgress = findViewById(R.id.sbProgress);
         handler = new Handler();
-
         player = new MediaPlayer();
         player.setOnPreparedListener(mediaPlayer -> {
             sbProgress.setMax(mediaPlayer.getDuration());
@@ -128,21 +129,31 @@ public class MainActivity extends Activity
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
     }
+
     private void changeSeekBar()
     {
         sbProgress.setProgress(player.getCurrentPosition());
-        if(player.isPlaying())
+        if(player != null)
         {
-            runnable = () -> changeSeekBar();
+            runnable = new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    MainActivity.this.changeSeekBar();
+                }
+            };
             handler.postDelayed(runnable, 1000);
         }
     }
+
     @Override
-    protected void onDestroy () {
+    protected void onDestroy ()
+    {
         super.onDestroy();
-        // cleanup
         super.onStop();
-        if (player.isPlaying()) {
+        if (player.isPlaying())
+        {
             player.stop();
             player.release();
         }
