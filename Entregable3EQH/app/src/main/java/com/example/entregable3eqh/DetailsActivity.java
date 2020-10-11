@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -149,7 +148,8 @@ public class DetailsActivity extends Activity
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume ();
     }
 
@@ -157,13 +157,6 @@ public class DetailsActivity extends Activity
     protected void onStart()
     {
         super.onStart ();
-
-        Intent intent = getIntent ();
-        if (intent != null)
-        {
-            String audio = intent.getStringExtra ("AUDIO");
-            //Toast.makeText (getBaseContext(), audio, Toast.LENGTH_LONG).show ();
-        }
 
     }
 

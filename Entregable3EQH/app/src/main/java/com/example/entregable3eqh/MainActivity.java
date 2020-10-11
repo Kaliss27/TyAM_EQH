@@ -25,7 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+{
     public static final int REQUEST_CODE = 1001;
     public static final int REQUEST_CODE_EXTERNAL_STORAGE = 1002;
     public static final int ACTIVITY_REQUEST_CODE = 2001;
@@ -33,7 +34,8 @@ public class MainActivity extends Activity {
     RecyclerView lv;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -43,7 +45,8 @@ public class MainActivity extends Activity {
 
         // solicita el permiso necesario para leer del almacenamiento externo
         int perm = getBaseContext ().checkSelfPermission (Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (perm != PackageManager.PERMISSION_GRANTED) {
+        if (perm != PackageManager.PERMISSION_GRANTED)
+        {
             requestPermissions (
                     new String [] { Manifest.permission.READ_EXTERNAL_STORAGE },
                     REQUEST_CODE_EXTERNAL_STORAGE
@@ -54,7 +57,8 @@ public class MainActivity extends Activity {
 
     }
 
-    void loadAudios () {
+    void loadAudios ()
+    {
         String [] columns = { MediaStore.Audio.Artists._ID, MediaStore.Audio.Media.DISPLAY_NAME };
         String order = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
 
@@ -65,7 +69,8 @@ public class MainActivity extends Activity {
 
         LinkedList<AudioModel> artists = new LinkedList<> ();
 
-        for (int i = 0; i < cursor.getCount (); i++) {
+        for (int i = 0; i < cursor.getCount (); i++)
+        {
             cursor.moveToPosition (i);
             AudioModel audioModel = new AudioModel ();
 
@@ -100,17 +105,21 @@ public class MainActivity extends Activity {
      * @param grantResults conjunto de resultados, permisos otorgados o denegados
      */
     @Override
-    public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
         super.onRequestPermissionsResult (requestCode, permissions, grantResults);
 
-        switch (requestCode) {
+        switch (requestCode)
+        {
             case REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED)
+                {
                     Toast.makeText (getBaseContext(),"Permission Granted!", Toast.LENGTH_LONG).show ();
                 }
                 break;
             case REQUEST_CODE_EXTERNAL_STORAGE:
-                if (grantResults.length > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED)
+                {
                     loadAudios ();
                 }
         }
@@ -124,7 +133,8 @@ public class MainActivity extends Activity {
      * @param data información resultante, si existe
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
     }
 }
@@ -132,12 +142,14 @@ public class MainActivity extends Activity {
 /**
  * Adaptador personalizado para controlar el llenado de datos del recyclerview
  */
-class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>
+{
     private Context context;
     private List<AudioModel> data;
     private OnAudioSelectedListener listener;
 
-    public MyAdapter (Context context, List<AudioModel> data) {
+    public MyAdapter (Context context, List<AudioModel> data)
+    {
         this.data = data;
         this.context = context;
     }
@@ -146,19 +158,22 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
      * Manajador para el evento de selección de elemento en la lista
      * @param listener objeto que implementa la interfaz OnAudioSelectedListener
      */
-    public void setOnAudioSelectedListener (OnAudioSelectedListener listener) {
+    public void setOnAudioSelectedListener (OnAudioSelectedListener listener)
+    {
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view = LayoutInflater.from (context).inflate (R.layout.list_item, parent, false);
         return new MyViewHolder (view);
     }
 
     @Override
-    public void onBindViewHolder (@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder (@NonNull MyViewHolder holder, int position)
+    {
         String foo = data.get (position).name;
         holder.text1.setText (foo);
 
@@ -173,18 +188,20 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public int getItemCount () {
+    public int getItemCount ()
+    {
         return data.size ();
     }
-
 
     /**
      * Mantiene referencia al componente que interesa reutilizar en la vista
      */
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder
+    {
         TextView text1;
 
-        public MyViewHolder (@NonNull View itemView) {
+        public MyViewHolder (@NonNull View itemView)
+        {
             super(itemView);
             text1 = itemView.findViewById (R.id.tvItem);
         }
@@ -195,11 +212,13 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 /**
  * Interfaz que define al objeto manajador del evento click en algun elemento de la lista
  */
-interface OnAudioSelectedListener {
+interface OnAudioSelectedListener
+{
     void audioSelected (Uri item);
 }
 
-class AudioModel {
+class AudioModel
+{
     long id;
     String name;
 }
