@@ -62,13 +62,13 @@ public class DetailsActivity extends Activity
             {
                 posThread.interrupt ();
                 player.stop ();
-                player.seekTo (0);
-                sbProgress.setProgress (0);
-                pos = -1;
+                player.seekTo (pos);
+                sbProgress.setProgress (pos);
+                pos = player.getCurrentPosition();
             }
             try
             {
-                player.setDataSource(getBaseContext (), mediaUri);
+                player.setDataSource(getApplicationContext (), mediaUri);
                 player.prepare ();
             }
             catch (IOException ex)
@@ -80,11 +80,11 @@ public class DetailsActivity extends Activity
         ImageButton btnPause = findViewById (R.id.imageButton_pause);
         btnPause.setOnClickListener (v ->
         {
+            pos = player.getCurrentPosition();
             if (player.isPlaying ())
             {
                 posThread.interrupt ();
                 player.stop ();
-                pos = player.getCurrentPosition();
                 player.seekTo (pos);
                 sbProgress.setProgress (pos);
             }
@@ -97,16 +97,14 @@ public class DetailsActivity extends Activity
         super.onSaveInstanceState (outState);
 
         outState.putString ("SONG", mediaUri != null ? mediaUri.toString (): "");
-        outState.putInt ("PROGRESS", player != null ?  player.getCurrentPosition () : -1);
+        outState.putInt ("PROGRESS", player != null ?  player.getCurrentPosition () : pos);
         outState.putBoolean ("ISPLAYING", player != null && player.isPlaying ());
-        outState.putInt ("PROGRESS2", player != null ?  player.getCurrentPosition () : -1);
 
         if (player.isPlaying ())
         {
             posThread.interrupt ();
             player.stop ();
-            player.seekTo (0);
-            player.stop ();
+            player.seekTo (pos);
             player.release ();
             player = null;
         }
@@ -120,16 +118,17 @@ public class DetailsActivity extends Activity
         mediaUri = Uri.parse (savedInstanceState.getString ("SONG"));
         pos = savedInstanceState.getInt ("PROGRESS");
         boolean isPlaying = savedInstanceState.getBoolean ("ISPLAYING");
-        pos = savedInstanceState.getInt ("PROGRESS2");
 
         if (player == null) return;
 
         try
         {
-            player.reset ();
-            player.setDataSource (getBaseContext (), mediaUri);
-            if (isPlaying) player.prepareAsync ();
-        } catch (IOException | IllegalStateException ioex)
+            player.reset();
+            player.setDataSource(getBaseContext(), mediaUri);
+            if (isPlaying) player.prepareAsync();
+            if (!isPlaying) player.stop();
+        }
+            catch (IOException | IllegalStateException ioex)
         {
             ioex.printStackTrace ();
         }

@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
     }
 
     void loadAudios () {
-        String [] columns = { MediaStore.Audio.Artists._ID, MediaStore.Audio.Playlists.TITLE };
+        String [] columns = { MediaStore.Audio.Artists._ID, MediaStore.Audio.Media.DISPLAY_NAME };
         String order = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
 
         // SELECT MediaStore.Audio.Artists.ARTIST, MediaStore.Audio.Media.ALBUM
@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
             long id = cursor.getLong (index);
             audioModel.id = id;
 
-            index = cursor.getColumnIndexOrThrow (MediaStore.Audio.Media.TITLE);
+            index = cursor.getColumnIndexOrThrow (MediaStore.Audio.Media.DISPLAY_NAME);
             String artist = cursor.getString (index);
             audioModel.name = artist;
 
