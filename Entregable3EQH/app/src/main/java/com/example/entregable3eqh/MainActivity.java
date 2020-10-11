@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
     }
 
     void loadAudios () {
-        String [] columns = { MediaStore.Audio.Artists._ID, MediaStore.Audio.Artists.ARTIST };
+        String [] columns = { MediaStore.Audio.Artists._ID, MediaStore.Audio.Playlists.TITLE };
         String order = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
 
         // SELECT MediaStore.Audio.Artists.ARTIST, MediaStore.Audio.Media.ALBUM
@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
             long id = cursor.getLong (index);
             audioModel.id = id;
 
-            index = cursor.getColumnIndexOrThrow (MediaStore.Audio.Media.ARTIST);
+            index = cursor.getColumnIndexOrThrow (MediaStore.Audio.Media.TITLE);
             String artist = cursor.getString (index);
             audioModel.name = artist;
 
@@ -83,7 +83,12 @@ public class MainActivity extends Activity {
         cursor.close ();
 
         MyAdapter adapter = new MyAdapter (getBaseContext (), artists);
-        adapter.setOnAudioSelectedListener (audioUri -> Toast.makeText (getBaseContext (), audioUri.toString (), Toast.LENGTH_LONG).show () );
+        adapter.setOnAudioSelectedListener(audioUri ->{
+            Toast.makeText(getBaseContext(), audioUri.toString(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Intent.ACTION_SENDTO, audioUri, getBaseContext(), DetailsActivity.class);
+            startActivity(intent);
+        }
+        );
         lv.setAdapter (adapter);
     }
 

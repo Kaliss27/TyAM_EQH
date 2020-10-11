@@ -31,6 +31,7 @@ public class DetailsActivity extends Activity
         sbProgress.setOnSeekBarChangeListener (new MySeekBarChangeListener ());
 
         player = new MediaPlayer ();
+        mediaUri=getIntent().getData();
         player.setOnPreparedListener (mediaPlayer ->
         {
             posThread = new Thread (() ->
@@ -65,14 +66,10 @@ public class DetailsActivity extends Activity
                 sbProgress.setProgress (0);
                 pos = -1;
             }
-
-            mediaUri = Uri.parse ("android.resource://" + getBaseContext ().getPackageName () + "/" + R.raw.mr_blue_sky);
-
             try
             {
                 player.setDataSource(getBaseContext (), mediaUri);
                 player.prepare ();
-                Toast.makeText (getApplicationContext (), "Now playing: Mr. Blue Sky", Toast.LENGTH_LONG).show ();
             }
             catch (IOException ex)
             {
@@ -83,27 +80,13 @@ public class DetailsActivity extends Activity
         ImageButton btnPause = findViewById (R.id.imageButton_pause);
         btnPause.setOnClickListener (v ->
         {
-
             if (player.isPlaying ())
             {
                 posThread.interrupt ();
-                player.pause ();
-                player.seekTo (0);
-                sbProgress.setProgress (0);
-                pos = -1;
-            }
-
-            mediaUri = Uri.parse ("android.resource://" + getBaseContext ().getPackageName () + "/" + R.raw.mr_blue_sky);
-
-            try
-            {
-                player.setDataSource (getBaseContext (), mediaUri);
-                player.prepare ();
-                Toast.makeText (getApplicationContext (), "Now playing: Lake Shoe Drive", Toast.LENGTH_LONG).show ();
-            }
-            catch (IOException ex)
-            {
-                ex.printStackTrace ();
+                player.stop ();
+                pos = player.getCurrentPosition();
+                player.seekTo (pos);
+                sbProgress.setProgress (pos);
             }
         });
     }
@@ -116,12 +99,14 @@ public class DetailsActivity extends Activity
         outState.putString ("SONG", mediaUri != null ? mediaUri.toString (): "");
         outState.putInt ("PROGRESS", player != null ?  player.getCurrentPosition () : -1);
         outState.putBoolean ("ISPLAYING", player != null && player.isPlaying ());
+        outState.putInt ("PROGRESS2", player != null ?  player.getCurrentPosition () : -1);
 
         if (player.isPlaying ())
         {
             posThread.interrupt ();
             player.stop ();
             player.seekTo (0);
+            player.stop ();
             player.release ();
             player = null;
         }
@@ -135,6 +120,7 @@ public class DetailsActivity extends Activity
         mediaUri = Uri.parse (savedInstanceState.getString ("SONG"));
         pos = savedInstanceState.getInt ("PROGRESS");
         boolean isPlaying = savedInstanceState.getBoolean ("ISPLAYING");
+        pos = savedInstanceState.getInt ("PROGRESS2");
 
         if (player == null) return;
 
@@ -177,7 +163,7 @@ public class DetailsActivity extends Activity
         if (intent != null)
         {
             String audio = intent.getStringExtra ("AUDIO");
-            Toast.makeText (getBaseContext(), audio, Toast.LENGTH_LONG).show ();
+            //Toast.makeText (getBaseContext(), audio, Toast.LENGTH_LONG).show ();
         }
 
     }
