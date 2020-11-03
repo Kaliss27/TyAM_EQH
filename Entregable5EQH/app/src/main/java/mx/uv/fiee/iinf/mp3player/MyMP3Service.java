@@ -26,14 +26,13 @@ public class MyMP3Service extends Service
     }
 
     @Override
-    public int onStartCommand (Intent intent, int flags, int startId) {
-        Intent notificationIntent = new Intent (this, MainActivity.class);
+    public int onStartCommand (Intent intent, int flags, int startId)
+    {
+        Intent notificationIntent = new Intent (this, DetailsActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity (this, 0, notificationIntent, 0);
 
-        // a partir de la versión 8 API 26, las notificaciones del sistema requieren un canal
-        // de modo que es posible tener multiples canales de notificación, cada uno destinado a objetivo determinado
-        // con configuraciones específicas
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+        {
             NotificationChannel channel = new NotificationChannel (CHANNEL_ID, CHANNEL_DESC, NotificationManager.IMPORTANCE_DEFAULT);
             channel.enableLights (false);
             channel.setShowBadge (true);
@@ -44,8 +43,6 @@ public class MyMP3Service extends Service
         // creamos una imagen de mapa de bits a partir del archivo de recursos, para ser usado como ícono
         Bitmap icon = BitmapFactory.decodeResource (getResources (), R.mipmap.baseline_library_music_white_48dp);
 
-        // la clave Notification.Builder requiere mínimo API 26 para ser ejecutado, como el proyecto se dirige al API 23 como
-        // SDK mínimo, es necesario recurrir a la librería de compatibilidad para asegurar que la notificación se cree correctamente
         // en versiones previas a android 8
         //Notification notification = new Notification.Builder (getBaseContext (), "NOTICHANNELTYAM")
         Notification notification = new NotificationCompat.Builder (this, CHANNEL_ID)
@@ -53,6 +50,8 @@ public class MyMP3Service extends Service
                 .setContentText ("Operation running please wait")
                 .setSmallIcon (R.mipmap.baseline_queue_music_white_24dp)
                 .setLargeIcon (icon)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .build ();
 
         startForeground (1, notification); // se establece la bandera para servicio en primer plano y la notificación
