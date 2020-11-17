@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Star Wars Elements</string>
+    <string name="toolBar">Star Wars Elements</string>
+    <string name="text_label_1">PLANETS</string>
+    <string name="text_label_2">PEOPLE</string>
+    <string name="text_label_3">VEHICLES</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_planets_fragment">Planets fragment</string>
+    <string name="hello_people_fragment">People fragment</string>
+    <string name="hello_vehicles_fragment">Vehicles  fragment</string>
+</resources>
