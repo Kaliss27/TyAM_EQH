@@ -1,5 +1,6 @@
 package com.example.appfb;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -58,6 +59,8 @@ public class LoginFrg extends Fragment {
         Button btnLogin = view.findViewById (R.id.btnLogin);
         btnLogin.setOnClickListener (v -> {
             login (edtEmail.getText ().toString (), edtPassword.getText().toString ());
+            Intent intent = new Intent(this, UserRegister.class);
+            startActivity (intent);
         });
     }
 }

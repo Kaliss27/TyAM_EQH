@@ -15,11 +15,97 @@
         android:layout_height="wrap_content"
         android:text="@string/register"
         android:textAlignment="center"
-        android:textSize="30dp">
-    </TextView>
-    <ImageView
-        android:layout_width="100dp"
+        android:textSize="30dp"/>
+
+    <LinearLayout
+        android:id="@+id/fotoItems"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_launcher_round">
-    </ImageView>
+        android:orientation="horizontal"
+        android:weightSum="4"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:text="@string/text1"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_weight="2"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textbtn1"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        />
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/tvApell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apellido"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        />
+    <EditText
+        android:id="@+id/etApell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/tvDir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dirección"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        />
+    <EditText
+        android:id="@+id/etDir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/tvAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edad"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        />
+    <EditText
+        android:id="@+id/etAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/tvPhonr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teléfono"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        />
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
 </LinearLayout>
