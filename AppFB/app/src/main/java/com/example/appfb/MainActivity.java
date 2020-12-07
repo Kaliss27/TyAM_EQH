@@ -1,17 +1,17 @@
 package com.example.appfb;
 
-import android.app.Activity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
-import android.widget.Toolbar;
+import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Objects;
-
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 
     @Override
@@ -19,10 +19,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
-        Toolbar myToolbar = findViewById(R.id.toolbar);
-        setActionBar (Objects.requireNonNull (myToolbar));
+        ActionBar actionBar = getSupportActionBar ();
+        if (actionBar != null) {
+            actionBar.setTitle ("App");
+        }
 
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.rootContainer, new LoginFrg())
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
     }
-    
-
 }
