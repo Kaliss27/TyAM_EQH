@@ -1,23 +1,26 @@
 package com.example.appfb;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private FirebaseAuth auth;
 
     @Override
@@ -25,14 +28,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
-        Toolbar toolbar = findViewById (R.id.toolbar);
-        setActionBar (Objects.requireNonNull (toolbar));
+        Toolbar mytoolbar = findViewById (R.id.toolbar);
+        setActionBar (Objects.requireNonNull (mytoolbar));
+    }
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.rootContainer, new LoginFrg())
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+    @Override
+    protected void onStart() {
+        auth = FirebaseAuth.getInstance ();
+
+        EditText edtEmail = findViewById (R.id.etEmailLogin);
+        EditText edtPassword = findViewById (R.id.etPasswordlLogin);
+
+        Button btnLogin = findViewById (R.id.btnLogin);
+        btnLogin.setOnClickListener (v -> {
+            login (edtEmail.getText ().toString (), edtPassword.getText().toString ());
+        });
+        super.onStart();
     }
 
     @Override
@@ -50,5 +61,25 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void login (String email, String password) {
+        auth.signInWithEmailAndPassword (email, password)
+                .addOnCompleteListener (task -> {
+                    if (task.isSuccessful ()) {
+                        FirebaseUser user = auth.getCurrentUser ();
+                        String name = "";
+
+                        if (user != null) {
+                            name = user.getDisplayName ();
+                        }
+                        Toast.makeText ( this, "Usuario " + name, Toast.LENGTH_LONG).show ();
+                        Intent intent = new Intent(this, ListUsers.class);
+                        startActivity (intent);
+
+                    } else {
+                        Toast.makeText (this, "Usuario y/o contraseña no reconocida!", Toast.LENGTH_LONG).show ();
+                    }
+                });
     }
 }

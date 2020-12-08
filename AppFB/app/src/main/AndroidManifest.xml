@@ -16,7 +16,8 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListUsers" />
+        <activity android:name=".ListUsers" >
+        </activity>
         <activity android:name=".UserRegister" />
     </application>
 

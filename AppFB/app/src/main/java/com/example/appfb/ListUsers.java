@@ -17,7 +17,7 @@ public class ListUsers extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_authentication);
+        setContentView(R.layout.activity_list_users);
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setActionBar (Objects.requireNonNull (myToolbar));
 
