@@ -97,7 +97,8 @@ public class ListUsers extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
-class Users {
+class Users
+{
     public String name;
     public String lastn;
     public String address;
