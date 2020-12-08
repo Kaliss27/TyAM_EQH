@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppFB</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_favorite">Añadir</string>
+    <string name="register">Registro de Usuario</string>
+    <string name="text1">Foto</string>
+    <string name="textbtn1">Cambiar</string>
+</resources>
