@@ -20,8 +20,8 @@
             app:navigationIcon="@drawable/ic_action_name"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />
-
     </com.google.android.material.appbar.AppBarLayout>
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -30,6 +30,15 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="126dp"
         tools:layout_editor_absoluteY="73dp" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="264dp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -44,7 +53,8 @@
         android:layout_width="182dp"
         android:layout_height="20dp"
         tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="107dp" />
+        tools:layout_editor_absoluteY="107dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView5"
@@ -52,14 +62,16 @@
         android:layout_height="wrap_content"
         android:text="Cantidad Requerida"
         tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="143dp" />
+        tools:layout_editor_absoluteY="143dp"
+        tools:ignore="MissingConstraints" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="179dp"
         android:layout_height="20dp"
         tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="143dp" />
+        tools:layout_editor_absoluteY="143dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -67,7 +79,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="186dp" />
+        tools:layout_editor_absoluteY="186dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -75,7 +88,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_menu_edit"
         tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="188dp" />
+        tools:layout_editor_absoluteY="188dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -83,30 +97,30 @@
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_delete"
         tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="188dp" />
+        tools:layout_editor_absoluteY="188dp"
+        tools:ignore="MissingConstraints" />
 
-    <TableLayout
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        tools:layout_editor_absoluteX="206dp"
-        tools:layout_editor_absoluteY="401dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="297dp"
+        tools:ignore="MissingConstraints">
 
-        <TableRow
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
-
-
+            android:layout_height="match_parent"
+            android:stretchColumns="1">
+            <TableRow>
+                <TextView
+                    android:layout_column="1"
+                    android:text="@string/t1"
+                    android:padding="3dip" />
+                <TextView
+                    android:text="@string/cant"
+                    android:gravity="right"
+                    android:padding="3dip" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

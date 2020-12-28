@@ -9,4 +9,6 @@
     <string name="recibidas">Recibido</string>
     <string name="map">Mapa</string>
     <string name="config">Configuracion</string>
+    <string name="t1">Medicamento</string>
+    <string name="cant">Cantidad</string>
 </resources>
