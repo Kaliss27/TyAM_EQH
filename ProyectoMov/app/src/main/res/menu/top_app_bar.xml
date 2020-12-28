@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/perfil"
+        android:title="@string/perfil"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/my_list"
+        android:title="@string/my_list"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/my_cont"
+        android:title="@string/my_cont"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/recibidas"
+        android:title="@string/recibidas"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/map"
+        android:title="@string/map"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/config"
+        android:title="@string/config"
+        app:showAsAction="never" />
+</menu>

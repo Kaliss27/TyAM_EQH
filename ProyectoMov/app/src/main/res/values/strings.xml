@@ -2,4 +2,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title1">Medicamentos a solicitar</string>
+    <string name="page_title">Med-UV</string>
+    <string name="perfil">Perfil</string>
+    <string name="my_list">Mi lista</string>
+    <string name="my_cont">Contribuciones</string>
+    <string name="recibidas">Recibido</string>
+    <string name="map">Mapa</string>
+    <string name="config">Configuracion</string>
 </resources>
