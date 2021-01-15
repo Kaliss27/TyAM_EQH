@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingBottom="240dp"
+        android:paddingBottom="110dp"
         android:layout_marginTop="100dp">
 
         <TextView
@@ -48,21 +48,37 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:text="INICIAR SESIÓN" />
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/checkbox_ind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="Individual"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
+
+        <RadioButton
+            android:id="@+id/checkbox_esc"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="45dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="Escuela"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="150dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:text="REGRISTRARSE" />
+        android:text="APLICAR" />
 
 </LinearLayout>
