@@ -13,16 +13,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textAlignment="center"
-            android:textSize="30dp"
+            android:textSize="50dp"
             android:textColor="@color/uv_blueP"
             android:text="@string/page_title"
             android:textStyle="bold"
             android:fontFamily="monospace"
             />
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
             android:layout_centerInParent="true"
+            android:textAlignment="center"
             android:src="@drawable/ic_action_name" />
     </LinearLayout>
     <androidx.appcompat.widget.AppCompatSeekBar
