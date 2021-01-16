@@ -12,4 +12,5 @@
     <string name="t1">Medicamento</string>
     <string name="cant">Cantidad</string>
     <string name="title_activity_login">Login</string>
+    <string name="title_activity_maps2">Map</string>
 </resources>

@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/checkbox_ind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             android:text="Individual"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/checkbox_esc"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

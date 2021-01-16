@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,128 +15,147 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/page_title"
             app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/ic_action_name"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            />
+            app:title="@string/page_title" />
     </com.google.android.material.appbar.AppBarLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_above="@id/topAppBar"
-        android:layout_alignParentLeft="true"
-        tools:ignore="NotSibling">
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="122dp"
-            android:layout_height="188dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="13dp"
-            tools:layout_editor_absoluteY="63dp"
-            tools:srcCompat="@tools:sample/avatars" />
-    </LinearLayout>
+        android:paddingBottom="80dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="203dp"
-        android:layout_height="19dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="154dp"
-        tools:layout_editor_absoluteY="67dp"
-        tools:ignore="MissingConstraints" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/topAppBar"
+            android:layout_alignParentLeft="true"
+            android:orientation="horizontal"
+            tools:ignore="NotSibling">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="203dp"
-        android:layout_height="19dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="154dp"
-        tools:layout_editor_absoluteY="113dp"
-        tools:ignore="MissingConstraints" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="MissingConstraints"
+                tools:srcCompat="@tools:sample/avatars" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="203dp"
-        android:layout_height="19dp"
-        android:text="TextView"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="154dp"
-        tools:layout_editor_absoluteY="156dp" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="180dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="20dp"
+            android:text="TextView"
+            tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="30dp"
-        android:layout_height="19dp"
-        app:srcCompat="@android:drawable/ic_menu_edit"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="365dp"
-        tools:layout_editor_absoluteY="67dp" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="180dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="30dp"
-        android:layout_height="19dp"
-        app:srcCompat="@android:drawable/ic_menu_edit"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="365dp"
-        tools:layout_editor_absoluteY="113dp" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="180dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="40dp"
-        android:layout_height="33dp"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="273dp"
-        tools:ignore="MissingConstraints" />
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="30dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="350dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="40dp"
-        android:layout_height="33dp"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="273dp"
-        tools:ignore="MissingConstraints" />
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="30dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="350dp"
+            android:layout_marginTop="50dp"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            tools:ignore="MissingConstraints" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="328dp"
-        tools:ignore="MissingConstraints" />
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="40dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="130dp"
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            tools:ignore="MissingConstraints" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clinica"
-        tools:layout_editor_absoluteX="154dp"
-        tools:layout_editor_absoluteY="193dp"
-        tools:ignore="MissingConstraints" />
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="40dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="130dp"
+            app:srcCompat="@android:drawable/ic_menu_gallery"
+            tools:ignore="MissingConstraints" />
+
+    </RelativeLayout>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/checkbox_esc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:onClick="onRadioButtonClicked"
+        android:text="Escuela"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+    <CheckBox
+        android:id="@+id/checkbox_ind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:onClick="onRadioButtonClicked"
         android:text="Individual"
-        tools:layout_editor_absoluteX="265dp"
-        tools:layout_editor_absoluteY="193dp"
-        tools:ignore="MissingConstraints" />
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+</RelativeLayout>
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.proyectomoviles.proyectomoviles.GraficaPerfil"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="200dp">
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="com.example.proyectomov.GraficaPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            tools:ignore="MissingConstraints" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="169dp"
-        tools:layout_editor_absoluteY="501dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="MI CLINICA"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
-</RelativeLayout>
+</LinearLayout>
