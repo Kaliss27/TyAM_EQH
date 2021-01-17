@@ -35,44 +35,7 @@ public class ListUsers extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_list_users);
-        Toolbar myToolbar = findViewById(R.id.toolbar);
-        setActionBar (Objects.requireNonNull (myToolbar));
-
-        RecyclerView recyclerView = findViewById (R.id.rvList);
-        recyclerView.addItemDecoration (new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        recyclerView.setItemAnimator (new DefaultItemAnimator());
-        recyclerView.setLayoutManager (new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-
-        Vector<Users> vUser = new Vector<>();
-
-        auth = FirebaseAuth.getInstance ();
-        iniciarSesion ();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance ();
-        DatabaseReference users = database.getReference ("Usuario");
-
-        users.addListenerForSingleValueEvent (new ValueEventListener() {
-            @Override
-            public void onDataChange (@NonNull DataSnapshot dataSnapshot) {
-                // datasnapShot hace referencia a la rama SONGS
-                // el método getChildren devuelve cada subelemento TRACK
-                for (DataSnapshot item: dataSnapshot.getChildren ()) {
-                    // getValue devuelve referencia al objeto contenido en cada TRACK
-                    // y lo convierte al tipo de datos indicado en el parámetro
-                    Users s = item.getValue (Users.class);
-                    vUser.add (s);
-                    Log.d ("TAG", s.name + " " + s.lastn);
-                }
-
-                recyclerView.setAdapter (new MyAdater (vUser));
-            }
-
-            @Override
-            public void onCancelled (@NonNull DatabaseError databaseError) {
-                Log.e ("TYAM", databaseError.getMessage ());
-            }
-        });
+      
 
     }
     void iniciarSesion () {

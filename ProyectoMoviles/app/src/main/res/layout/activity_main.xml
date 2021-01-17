@@ -3,38 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerInParent="true">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:textAlignment="center"
-            android:textSize="50dp"
-            android:textColor="@color/uv_blueP"
-            android:text="@string/page_title"
-            android:textStyle="bold"
-            android:fontFamily="monospace"
-            />
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            android:textAlignment="center"
-            android:src="@drawable/ic_action_name" />
-    </LinearLayout>
-    <androidx.appcompat.widget.AppCompatSeekBar
+
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:progressBackgroundTint="@color/blue_background"
-        android:progressTint="@color/green_background"
-        android:thumbTint="@color/uv_greenP"
-        >
-    </androidx.appcompat.widget.AppCompatSeekBar>
+        android:layout_height="339dp"
+        android:layout_centerVertical="true"
+        app:srcCompat="@mipmap/ic_launcher_foreground" />
+
 
 </RelativeLayout>
