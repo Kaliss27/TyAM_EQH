@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "453291093648",
+    "firebase_url": "https://tyam-eqh-default-rtdb.firebaseio.com",
+    "project_id": "tyam-eqh",
+    "storage_bucket": "tyam-eqh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453291093648:android:a8edb2ee56b80107a33215",
+        "android_client_info": {
+          "package_name": "com.example.appfb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453291093648-4ar41qdp9e787sf63vres6lu02hbq1ln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbMbvH1WMCi-NIN6G1djsRx-5RfpWl02Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453291093648-4ar41qdp9e787sf63vres6lu02hbq1ln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453291093648:android:c1012379e95eb893a33215",
+        "android_client_info": {
+          "package_name": "com.example.proyectomov"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453291093648-4ar41qdp9e787sf63vres6lu02hbq1ln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbMbvH1WMCi-NIN6G1djsRx-5RfpWl02Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453291093648-4ar41qdp9e787sf63vres6lu02hbq1ln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
