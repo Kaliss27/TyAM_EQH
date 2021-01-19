@@ -33,6 +33,10 @@
             android:label="@string/page_title" />
 
         <activity
+            android:name=".ui.login.RegisterUserActivity"
+            android:label="@string/page_title" />
+
+        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/page_title" />
 

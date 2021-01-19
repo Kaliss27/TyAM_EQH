@@ -21,18 +21,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         auth = FirebaseAuth.getInstance ();
 
-        EditText edtEmail = findViewById (R.id.etEmailLogin);
-        EditText edtPassword = findViewById (R.id.etPasswordlLogin);
-
-        Button btnLogin = findViewById (R.id.btnLogin);
-        btnLogin.setOnClickListener (v -> {
-            login (edtEmail.getText ().toString (), edtPassword.getText().toString ());
-        });
-        super.onStart();
         super.onStart();
     }
 
     private void login(String email, String password) {
+        if(email.length()==0 || password.length()==0){
+            Toast.makeText (this, "Rellene los campos", Toast.LENGTH_LONG).show ();
+            return;
+        }
         auth.signInWithEmailAndPassword (email, password)
                 .addOnCompleteListener (task -> {
                     if (task.isSuccessful ()) {
@@ -56,6 +52,20 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        EditText edtEmail = findViewById (R.id.etEmailLogin);
+        EditText edtPassword = findViewById (R.id.etPasswordlLogin);
+
+        Button btnLogin = findViewById (R.id.btnLogin);
+        btnLogin.setOnClickListener (v -> {
+            login (edtEmail.getText ().toString (), edtPassword.getText().toString ());
+        });
+
+        Button btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(v -> {
+            Intent intentRegister= new Intent(this,RegisterUserActivity.class);
+            startActivity(intentRegister);
+        });
 
 
 }}
