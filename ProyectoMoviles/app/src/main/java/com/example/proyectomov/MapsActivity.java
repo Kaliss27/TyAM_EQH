@@ -5,11 +5,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,22 +32,75 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double lng = 0.0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
+        //Toolbar toolbar = findViewById (R.id.topAppBar);
+        //setActionBar (toolbar);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
+    public boolean onCreateOptionsMenu (Menu menu)
+    {
+        getMenuInflater ().inflate (R.menu.top_app_bar, menu);
+        return super.onCreateOptionsMenu (menu);
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        if (item.getItemId () == R.id.perfil)
+        {
+            Intent intent = new Intent (getBaseContext (), Perfil.class);
+            startActivity (intent);
+        }
+
+        /*if (item.getItemId () == R.id.my_list)
+        {
+            Intent intent = new Intent (getBaseContext (), Perfil.class);
+            startActivity (intent);
+        }
+
+        if (item.getItemId () == R.id.my_cont)
+        {
+            Intent intent = new Intent (getBaseContext (), Perfil.class);
+            startActivity (intent);
+        }
+
+        if (item.getItemId () == R.id.recibidas)
+        {
+            Intent intent = new Intent (getBaseContext (), Perfil.class);
+            startActivity (intent);
+        }*/
+
+        if (item.getItemId () == R.id.map)
+        {
+            Intent intent = new Intent (getBaseContext (), MapsActivity.class);
+            startActivity (intent);
+        }
+
+        /*if (item.getItemId () == R.id.config)
+        {
+            Intent intent = new Intent (getBaseContext (), Perfil.class);
+            startActivity (intent);
+        }*/
+
+        return super.onOptionsItemSelected (item);
+    }
+
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
         mMap = googleMap;
         miUbicacion();
     }
 
-    private void agregarMarcador(double lat, double lng) {
+    private void agregarMarcador(double lat, double lng)
+    {
         LatLng coordenadas = new LatLng(lat, lng);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
         if (marcador != null) marcador.remove();
@@ -55,15 +112,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(miUbicacion);
     }
 
-    private void actualizarUbicacion(Location location) {
-        if (location != null) {
+    private void actualizarUbicacion(Location location)
+    {
+        if (location != null)
+        {
             lat = location.getLatitude();
             lng = location.getLongitude();
             agregarMarcador(lat, lng);
         }
     }
 
-    LocationListener loclistener = new LocationListener() {
+    LocationListener loclistener = new LocationListener()
+    {
         @Override
         public void onLocationChanged(@NonNull Location location) {
             actualizarUbicacion(location);
@@ -79,10 +139,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onProviderDisabled(@NonNull String provider) {}
     };
 
-    private void miUbicacion() {
+    private void miUbicacion()
+    {
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_FINE_LOCATION)){
-            }else{
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_FINE_LOCATION))
+            {
+            }
+            else
+            {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
             }
             return;
@@ -91,6 +155,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         actualizarUbicacion(location);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,15000,0,loclistener);
-
     }
 }
