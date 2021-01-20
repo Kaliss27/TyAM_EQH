@@ -1,16 +1,24 @@
 package com.example.proyectomov.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectomov.PerfilActivity;
 import com.example.proyectomov.R;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 import static java.security.AccessController.getContext;
 
@@ -18,9 +26,25 @@ public class RegisterUserActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater ().inflate (R.menu.only_top_app_bar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_registro);
+
+        //Define Toolbar
+        Toolbar toolbar = findViewById (R.id.toolbar);
+        setActionBar (Objects.requireNonNull (toolbar));
+        toolbar.setNavigationIcon(R.drawable.ic_action_name); //Define icono para toolbar
 
         auth = FirebaseAuth.getInstance ();
 
@@ -39,6 +63,8 @@ public class RegisterUserActivity extends AppCompatActivity {
                 .addOnCompleteListener (task -> {
                     if (task.isSuccessful ()) {
                         Toast.makeText ( this, "Registro Realizado!", Toast.LENGTH_LONG).show ();
+                        Intent intPerfil = new Intent(this, PerfilActivity.class);
+                        startActivity(intPerfil);
                     } else {
                         if (task.getException () != null) {
                             Log.e("TYAM", task.getException().getMessage());

@@ -1,5 +1,6 @@
 package com.example.proyectomov;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -7,12 +8,14 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -23,6 +26,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Objects;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -36,61 +41,62 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        //Toolbar toolbar = findViewById (R.id.topAppBar);
-        //setActionBar (toolbar);
+ //Define Toolbar
+        Toolbar toolbar = findViewById (R.id.toolbar);
+        setActionBar (Objects.requireNonNull (toolbar));
+        toolbar.setNavigationIcon(R.drawable.ic_action_name); //Define icono para toolbar
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
-    public boolean onCreateOptionsMenu (Menu menu)
-    {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater ().inflate (R.menu.top_app_bar, menu);
-        return super.onCreateOptionsMenu (menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    public boolean onOptionsItemSelected(@NonNull MenuItem item)
-    {
-        if (item.getItemId () == R.id.perfil)
-        {
-            Intent intent = new Intent (getBaseContext (), Perfil.class);
-            startActivity (intent);
+    @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+        Intent nextAct;
+            switch (item.getItemId()) {
+                case R.id.perfil:
+                    //Toast.makeText ( this, "Perfil!", Toast.LENGTH_LONG).show ();
+                    nextAct= new Intent(this,PerfilActivity.class);
+                    startActivity(nextAct);
+                    return true;
+
+                case R.id.my_list:
+                    nextAct= new Intent(this,MyListActivity.class);
+                    startActivity(nextAct);
+                    return true;
+                case R.id.my_cont:
+                    nextAct= new Intent(this,MyContActivity.class);
+                    startActivity(nextAct);
+                    return true;
+
+                case R.id.recibidas:
+                    nextAct= new Intent(this,RecepcionesActivity.class);
+                    startActivity(nextAct);
+                    return true;
+
+                case R.id.map:
+                    nextAct= new Intent(this,MapaListActivity.class);
+                    startActivity(nextAct);
+                    return true;
+
+                case R.id.config:
+                    nextAct= new Intent(this,ConfigActivity.class);
+                    startActivity(nextAct);
+                    return true;
+                default:
+                    // If we got here, the user's action was not recognized.
+                    // Invoke the superclass to handle it.
+                    return super.onOptionsItemSelected(item);
+            }
         }
 
-        /*if (item.getItemId () == R.id.my_list)
-        {
-            Intent intent = new Intent (getBaseContext (), Perfil.class);
-            startActivity (intent);
-        }
-
-        if (item.getItemId () == R.id.my_cont)
-        {
-            Intent intent = new Intent (getBaseContext (), Perfil.class);
-            startActivity (intent);
-        }
-
-        if (item.getItemId () == R.id.recibidas)
-        {
-            Intent intent = new Intent (getBaseContext (), Perfil.class);
-            startActivity (intent);
-        }*/
-
-        if (item.getItemId () == R.id.map)
-        {
-            Intent intent = new Intent (getBaseContext (), MapsActivity.class);
-            startActivity (intent);
-        }
-
-        /*if (item.getItemId () == R.id.config)
-        {
-            Intent intent = new Intent (getBaseContext (), Perfil.class);
-            startActivity (intent);
-        }*/
-
-        return super.onOptionsItemSelected (item);
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap)

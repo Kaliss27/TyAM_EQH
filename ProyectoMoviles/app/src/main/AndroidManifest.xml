@@ -30,21 +30,40 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/page_title" />
-
-        <activity
-            android:name=".ui.login.RegisterUserActivity"
-            android:label="@string/page_title" />
-
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/page_title" />
-
-        <activity android:name=".MainActivity" >
+            android:label="@string/page_title"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.login.RegisterUserActivity"
+            android:label="@string/page_title"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PerfilActivity"
+            android:label="@string/page_title"
+            android:screenOrientation="portrait">
+            <!--<intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>!-->
+        </activity>
+
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/page_title"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:label="Med-UV">
+            <!--<intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>!-->
         </activity>
 
     </application>
