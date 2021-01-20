@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -31,6 +32,12 @@ public class PerfilActivity extends FragmentActivity {
         Toolbar toolbar = findViewById (R.id.toolbar);
         setActionBar (Objects.requireNonNull (toolbar));
         toolbar.setNavigationIcon(R.drawable.ic_action_name); //Define icono para toolbar
+
+        ImageButton edit1=findViewById(R.id.imageButton);
+        ImageButton edit2=findViewById(R.id.imageButton2);
+
+
+
 
     }
     @Override

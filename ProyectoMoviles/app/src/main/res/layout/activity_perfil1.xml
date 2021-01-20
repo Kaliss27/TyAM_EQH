@@ -34,7 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:ignore="MissingConstraints"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_person_24" />
         </LinearLayout>
 
         <RelativeLayout
@@ -44,8 +45,8 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="180dp"
-                android:layout_height="20dp"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="10dp"
                 android:text="TextView"
@@ -53,8 +54,8 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="180dp"
-                android:layout_height="20dp"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginStart="10dp"
                 android:text="TextView"
@@ -62,8 +63,8 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="180dp"
-                android:layout_height="20dp"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginStart="10dp"
                 android:text="TextView"
@@ -72,19 +73,21 @@
             <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="30dp"
-                android:layout_height="19dp"
-                android:layout_marginStart="200dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="220dp"
                 android:layout_marginTop="20dp"
-                app:srcCompat="@android:drawable/ic_menu_edit"
+                android:src="@drawable/ic_baseline_edit_24"
+                android:backgroundTint="@color/blanco"
                 tools:ignore="MissingConstraints" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="30dp"
-                android:layout_height="19dp"
-                android:layout_marginStart="200dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="220dp"
                 android:layout_marginTop="50dp"
-                app:srcCompat="@android:drawable/ic_menu_edit"
+                android:backgroundTint="@color/blanco"
+                android:src="@drawable/ic_baseline_edit_24"
                 tools:ignore="MissingConstraints" />
         </RelativeLayout>
 
@@ -94,7 +97,8 @@
             android:layout_height="33dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="130dp"
-            app:srcCompat="@android:drawable/ic_menu_camera"
+            android:backgroundTint="@color/blanco"
+            android:src="@drawable/ic_baseline_photo_camera_24"
             tools:ignore="MissingConstraints" />
 
         <ImageButton
@@ -103,12 +107,13 @@
             android:layout_height="33dp"
             android:layout_marginStart="70dp"
             android:layout_marginTop="130dp"
-            app:srcCompat="@android:drawable/ic_menu_gallery"
+            android:backgroundTint="@color/blanco"
+            android:src="@drawable/ic_baseline_collections_24"
             tools:ignore="MissingConstraints" />
 
     </RelativeLayout>
 
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true">
@@ -118,7 +123,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:onClick="onRadioButtonClicked"
+        android:layout_marginEnd="50dp"
         android:text="Escuela"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
@@ -126,26 +131,18 @@
         android:id="@+id/checkbox_ind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:onClick="onRadioButtonClicked"
         android:text="Individual"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
-</RelativeLayout>
+</LinearLayout>
 
-    <RelativeLayout
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.proyectomov.GraficaPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="200dp">
+        android:layout_centerHorizontal="true"
+        tools:ignore="MissingConstraints" />
 
-        <fragment
-            android:id="@+id/fragment"
-            android:name="com.example.proyectomov.GraficaPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            tools:ignore="MissingConstraints" />
-
-    </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
