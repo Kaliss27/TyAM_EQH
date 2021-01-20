@@ -44,50 +44,56 @@
                 tools:srcCompat="@tools:sample/avatars" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="180dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="20dp"
-            android:text="TextView"
-            tools:ignore="MissingConstraints" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginStart="125dp">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="180dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="10dp"
-            android:text="TextView"
-            tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="180dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:text="TextView"
+                tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="180dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="10dp"
-            android:text="TextView"
-            tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="180dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="10dp"
+                android:text="TextView"
+                tools:ignore="MissingConstraints" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="30dp"
-            android:layout_height="19dp"
-            android:layout_marginStart="350dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:drawable/ic_menu_edit"
-            tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="180dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginStart="10dp"
+                android:text="TextView"
+                tools:ignore="MissingConstraints" />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="30dp"
-            android:layout_height="19dp"
-            android:layout_marginStart="350dp"
-            android:layout_marginTop="50dp"
-            app:srcCompat="@android:drawable/ic_menu_edit"
-            tools:ignore="MissingConstraints" />
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="30dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="20dp"
+                app:srcCompat="@android:drawable/ic_menu_edit"
+                tools:ignore="MissingConstraints" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="30dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="50dp"
+                app:srcCompat="@android:drawable/ic_menu_edit"
+                tools:ignore="MissingConstraints" />
+        </RelativeLayout>
 
         <ImageButton
             android:id="@+id/imageButton3"
@@ -112,7 +118,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_centerHorizontal="true">
 
     <CheckBox
         android:id="@+id/checkbox_esc"
@@ -143,18 +149,21 @@
             android:name="com.example.proyectomov.GraficaPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
             tools:ignore="MissingConstraints" />
 
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:text="MI CLINICA"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="MI CLINICA"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+    </RelativeLayout>
 
 </LinearLayout>

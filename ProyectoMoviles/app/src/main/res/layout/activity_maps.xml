@@ -24,18 +24,17 @@
         tools:context=".MapsActivity2"
         tools:ignore="MissingConstraints" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="60dp">
+
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Clinicas más cercanas"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="10dp"
-        tools:ignore="MissingConstraints" />
-    </LinearLayout>
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
 </LinearLayout>
