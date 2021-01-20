@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentActivity;
 import java.util.Objects;
 
 
-public class PerfilActivity extends Activity {
+public class PerfilActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
