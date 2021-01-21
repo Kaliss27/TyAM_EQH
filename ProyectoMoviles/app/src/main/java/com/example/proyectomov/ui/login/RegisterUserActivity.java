@@ -1,5 +1,6 @@
 package com.example.proyectomov.ui.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,13 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectomov.PerfilActivity;
 import com.example.proyectomov.R;
+import com.example.proyectomov.RPerfilActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
 import static java.security.AccessController.getContext;
 
-public class RegisterUserActivity extends AppCompatActivity {
+public class RegisterUserActivity extends Activity {
     private FirebaseAuth auth;
 
     @Override
@@ -63,7 +65,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                 .addOnCompleteListener (task -> {
                     if (task.isSuccessful ()) {
                         Toast.makeText ( this, "Registro Realizado!", Toast.LENGTH_LONG).show ();
-                        Intent intPerfil = new Intent(this, PerfilActivity.class);
+                        Intent intPerfil = new Intent(this, RPerfilActivity.class);
                         startActivity(intPerfil);
                     } else {
                         if (task.getException () != null) {

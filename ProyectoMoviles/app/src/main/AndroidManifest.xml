@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.proyectomov" >
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -23,10 +24,10 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:label="Med-UV">
-            <!--<<intent-filter>
+           <!-- <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
-            </intent-filter>-->
+            </intent-filter>!-->
         </activity>
 
         <activity
@@ -42,7 +43,8 @@
         <activity
             android:name=".ui.login.RegisterUserActivity"
             android:label="@string/page_title"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            tools:ignore="Instantiatable">
             <!--<intent-filter>
                  <category android:name="android.intent.category.LAUNCHER" />
                  <action android:name="android.intent.action.MAIN" />
@@ -63,12 +65,20 @@
             android:name=".MapsActivity"
             android:label="@string/page_title"
             android:screenOrientation="portrait">
+           <!-- <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>!-->
+        </activity>
+
+        <activity android:name=".RPerfilActivity"
+            android:screenOrientation="portrait"
+            android:label="Med-UV">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

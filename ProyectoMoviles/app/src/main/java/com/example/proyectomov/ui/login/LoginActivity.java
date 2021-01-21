@@ -45,6 +45,7 @@ public class LoginActivity extends Activity {
                         if (user != null) {
                             name = user.getDisplayName ();
                         }
+
                         Toast.makeText ( this, "Usuario " + name, Toast.LENGTH_LONG).show ();
                         Intent intent = new Intent(this, MapsActivity.class);
                         startActivity (intent);
