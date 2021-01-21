@@ -24,10 +24,10 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:label="Med-UV">
-           <!-- <intent-filter>
+           <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
-            </intent-filter>!-->
+            </intent-filter>
         </activity>
 
         <activity
@@ -74,10 +74,10 @@
         <activity android:name=".RPerfilActivity"
             android:screenOrientation="portrait"
             android:label="Med-UV">
-            <intent-filter>
+            <!--<intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
+            </intent-filter>!-->
         </activity>
     </application>
 

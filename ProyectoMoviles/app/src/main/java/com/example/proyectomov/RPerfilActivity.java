@@ -22,6 +22,7 @@ import java.util.Objects;
 public class RPerfilActivity extends FragmentActivity {
     public EditText edNombre;
     public EditText edEstado;
+    public EditText edPhone;
 
     public CheckBox cbEsc;
     public CheckBox cbInd;
@@ -38,6 +39,7 @@ public class RPerfilActivity extends FragmentActivity {
 
         edNombre=findViewById(R.id.etNombre);
         edEstado=findViewById(R.id.etEstado);
+        edPhone=findViewById(R.id.etPhone);
 
         cbEsc=findViewById(R.id.checkbox_esc);
         cbInd=findViewById(R.id.checkbox_ind);
@@ -56,12 +58,13 @@ public class RPerfilActivity extends FragmentActivity {
         Usuario duser = new Usuario();
         Editable eedNombre=edNombre.getText();
         Editable eedEstado=edEstado.getText();
+        Editable eedPhone=edPhone.getText();
 
         if (user != null) {
             duser.nombre = eedNombre.toString();
-            duser.estado = eedEstado.toString();
-            duser.email = user.getEmail();
-            duser.foto = "//";
+            duser.ciudad = eedEstado.toString();
+            duser.appPhoto="/";
+            duser.appPhone=eedPhone.toString();
             if (cbEsc.isChecked())
                 duser.esc = 1;
             if (cbInd.isChecked())
@@ -74,21 +77,21 @@ public class RPerfilActivity extends FragmentActivity {
         DatabaseReference users = database.getReference("Usuarios");
 
         HashMap<String, Object> node = new HashMap<>();
-        node.put("456", duser);
+        node.put(user.getUid(), duser);
 
         users.updateChildren(node)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(getBaseContext(), "Ndde added successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Datos registrados correctamente", Toast.LENGTH_LONG).show();
                 })
-                .addOnFailureListener(e -> Toast.makeText(getBaseContext(), "Ndde add failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                .addOnFailureListener(e -> Toast.makeText(getBaseContext(), "Error al registrar los datos " + e.getMessage(), Toast.LENGTH_LONG).show());
     }   }
 
 class Usuario
 {
     public String nombre;
-    public String estado;
+    public String ciudad;
+    public String appPhoto;
+    public String appPhone;
     public int esc;
     public int ind;
-    public String foto;
-    public String email;
 }
