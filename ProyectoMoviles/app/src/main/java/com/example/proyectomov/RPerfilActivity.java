@@ -1,23 +1,22 @@
 package com.example.proyectomov;
 
-import android.app.Service;
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.os.Build;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.provider.MediaStore;
 import android.text.Editable;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,11 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class RPerfilActivity extends FragmentActivity implements SensorEventListener
-{
-
-    SensorManager sensorManager;
-    Sensor sensor;
+public class RPerfilActivity extends Activity {
+    public static final int REQUEST_CAMERA_OPEN = 4001;
+    public static final int REQUEST_PERMISSION_CAMERA_LOCATION = 3001;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public EditText edNombre;
     public EditText edEstado;
@@ -40,10 +38,12 @@ public class RPerfilActivity extends FragmentActivity implements SensorEventList
 
     public CheckBox cbEsc;
     public CheckBox cbInd;
+    public ImageButton btnTake;
+    public ImageButton btnGallery;
+
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro_perfil);
 
@@ -59,21 +59,54 @@ public class RPerfilActivity extends FragmentActivity implements SensorEventList
         cbEsc=findViewById(R.id.checkbox_esc);
         cbInd=findViewById(R.id.checkbox_ind);
 
+        btnTake=findViewById(R.id.imageButtonC);
+        btnTake.setOnClickListener(v->{
+            int camPermission = checkSelfPermission (Manifest.permission.CAMERA);
+            int coarsePermission = checkSelfPermission (Manifest.permission.ACCESS_COARSE_LOCATION);
+
+            if (camPermission != PackageManager.PERMISSION_GRANTED || coarsePermission != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions (
+                        new String [] { Manifest.permission.CAMERA, Manifest.permission.ACCESS_COARSE_LOCATION },
+                        REQUEST_PERMISSION_CAMERA_LOCATION
+                );
+
+                return;
+            }
+            tomarFotoP();
+        });
+
+
+        btnGallery=findViewById(R.id.imageButtonG);
+        btnGallery.setOnClickListener(v->{
+            buscarFotoP();
+        });
+
         Button regBtn= findViewById(R.id.btnRegister);
         regBtn.setOnClickListener( v ->{
-            guardarUsuario();
-        }
+                    guardarUsuario();
+                }
         );
-
-        sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
 
-    private void guardarUsuario()
-    {
+    private void tomarFotoP() {
+        Intent intentC = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+        //startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
+        if (intentC.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
+        }
+    }
+
+    private void buscarFotoP() {
+
+
+    }
+
+    private void guardarUsuario() {
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         Usuario duser = new Usuario();
+
         Editable eedNombre=edNombre.getText();
         Editable eedEstado=edEstado.getText();
         Editable eedPhone=edPhone.getText();
@@ -83,6 +116,8 @@ public class RPerfilActivity extends FragmentActivity implements SensorEventList
             duser.ciudad = eedEstado.toString();
             duser.appPhoto="/";
             duser.appPhone=eedPhone.toString();
+
+
             if (cbEsc.isChecked())
                 duser.esc = 1;
             if (cbInd.isChecked())
@@ -104,44 +139,20 @@ public class RPerfilActivity extends FragmentActivity implements SensorEventList
                 .addOnFailureListener(e -> Toast.makeText(getBaseContext(), "Error al registrar los datos " + e.getMessage(), Toast.LENGTH_LONG).show());
     }
 
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-        sensorManager.unregisterListener(this);
-    }
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onSensorChanged(SensorEvent event)
-    {
-        if (!Settings.System.canWrite(getApplicationContext()))
+    /*public void onCheckboxClicked(View view) {
+        if(cbEsc.isChecked())
         {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-            startActivity(intent);
+            frgDC.setVisibility(View.VISIBLE);
+            edNombreC=frgDC.findViewById(R.id.etCNombre);
+            edCiudadC=frgDC.findViewById(R.id.etCiudad);
+            edPhoneC=frgDC.findViewById(R.id.etCPhone);
         }
-
-        if (Settings.System.canWrite(getApplicationContext()))
-        {
-            if(event.sensor.getType() == Sensor.TYPE_LIGHT);
-            {
-                int myBrightness = (int) event.values[0];
-                Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, myBrightness);
-            }
-        }
-    }
-
+        else
+            frgDC.setVisibility(View.GONE);
+    }*/
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy)
-    {
-
+    protected void onStart() {
+        super.onStart();
     }
 }
 
@@ -153,4 +164,13 @@ class Usuario
     public String appPhone;
     public int esc;
     public int ind;
+}
+
+class Clinica
+{
+    public String nombreC;
+    public String ciudadC;
+    public String appPhotoC;
+    public String fk_user;
+    public String phoneC;
 }

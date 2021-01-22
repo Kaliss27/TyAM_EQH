@@ -15,14 +15,6 @@
         android:layout_height="?attr/actionBarSize"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:textAlignment="center"
-        android:text="Perfil del usuario"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,7 +54,7 @@
             android:id="@+id/tvEstado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ciudad"
+            android:text="Estado"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
             />
 
@@ -85,6 +77,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:text="Escuela"
+                android:onClick="onCheckboxClicked"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
             <CheckBox
@@ -95,46 +88,9 @@
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            >
-            <TextView
-                android:id="@+id/tvOpPhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Foto de perfil"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                />
-            <ImageButton
-                android:id="@+id/imageButtonC"
-                android:layout_width="40dp"
-                android:layout_height="33dp"
-                android:layout_marginStart="50dp"
-                android:backgroundTint="@color/blanco"
-                android:src="@drawable/ic_baseline_photo_camera_24"
-                tools:ignore="MissingConstraints" />
-
-            <ImageButton
-                android:id="@+id/imageButtonG"
-                android:layout_width="40dp"
-                android:layout_height="33dp"
-                android:layout_marginStart="50dp"
-                android:backgroundTint="@color/blanco"
-                android:src="@drawable/ic_baseline_collections_24"
-                tools:ignore="MissingConstraints" />
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/tvUriPhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="//"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-            />
     </LinearLayout>
+
+
 
     <Button
         android:id="@+id/btnRegister"
