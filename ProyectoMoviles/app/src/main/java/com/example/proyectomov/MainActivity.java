@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.example.proyectomov.ui.login.LoginActivity;
 
@@ -65,13 +67,20 @@ public class MainActivity extends Activity implements SensorEventListener {
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onSensorChanged(SensorEvent event)
     {
-        //int brillo = 0;
-        if(event.sensor.getType() == Sensor.TYPE_LIGHT);
+        if (!Settings.System.canWrite(getApplicationContext()))
         {
-            //Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brillo);
+            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+            startActivity(intent);
+        }
+
+        if (Settings.System.canWrite(getApplicationContext()))
+        {
+            int myBrightness = 0;
+            Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, myBrightness);
         }
     }
 
