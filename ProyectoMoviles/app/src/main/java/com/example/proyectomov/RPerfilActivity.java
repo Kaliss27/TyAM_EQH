@@ -2,20 +2,24 @@ package com.example.proyectomov;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Editable;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -27,8 +31,6 @@ import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,14 +41,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class RPerfilActivity extends Activity {
+public class RPerfilActivity extends Activity implements SensorEventListener
+{
+    SensorManager sensorManager;
+    Sensor sensor;
+
     public static final int REQUEST_CAMERA_OPEN = 4001;
     public static final int REQUEST_PERMISSION_CAMERA = 3001;
 
@@ -68,7 +70,8 @@ public class RPerfilActivity extends Activity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro_perfil);
 
@@ -118,16 +121,21 @@ public class RPerfilActivity extends Activity {
                     guardarUsuario();
                 }
         );
+
+        sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
 
-    private void tomarFotoP() {
-       Intent intentC = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-       startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
+    private void tomarFotoP()
+    {
+        Intent intentC = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode)
@@ -149,7 +157,8 @@ public class RPerfilActivity extends Activity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CAMERA_OPEN && resultCode == RESULT_OK)
         {
@@ -159,7 +168,8 @@ public class RPerfilActivity extends Activity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void buscarFotoP() {
+    private void buscarFotoP()
+    {
         int perm = checkSelfPermission (Manifest.permission.READ_EXTERNAL_STORAGE);
         if (perm != PackageManager.PERMISSION_GRANTED)
         {
@@ -171,7 +181,8 @@ public class RPerfilActivity extends Activity {
         }
     }
 
-    private void guardarPFenStorage(){
+    private void guardarPFenStorage()
+    {
         StorageReference imagesFolder = storage.getReference ("profilePhotos/");
         StorageReference  image = imagesFolder.child (user.getUid()+"_pP.png");
 
@@ -198,7 +209,6 @@ public class RPerfilActivity extends Activity {
                         });
                     }
                 });
-
     }
 
     private Bitmap getBitmapFromDrawable (Drawable drble)
@@ -214,8 +224,8 @@ public class RPerfilActivity extends Activity {
         return bitmap;
     }
 
-    private void guardarUsuario() {
-
+    private void guardarUsuario()
+    {
         Usuario duser = new Usuario();
 
         Editable eedNombre=edNombre.getText();
@@ -223,7 +233,8 @@ public class RPerfilActivity extends Activity {
         Editable eedPhone=edPhone.getText();
 
 
-        if (user != null) {
+        if (user != null)
+        {
             duser.nombre = eedNombre.toString();
             duser.ciudad = eedEstado.toString();
             duser.appPhone=eedPhone.toString();
@@ -236,7 +247,9 @@ public class RPerfilActivity extends Activity {
                 duser.esc = 1;
             if (cbInd.isChecked())
                 duser.ind = 1;
-        } else {
+        }
+        else
+        {
             Toast.makeText(getBaseContext(), "No hay permiso de escritura", Toast.LENGTH_LONG).show();
         }
 
@@ -265,6 +278,47 @@ public class RPerfilActivity extends Activity {
     protected void onStart() {
         super.onStart();
     }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onSensorChanged(SensorEvent event)
+    {
+        if (!Settings.System.canWrite(getApplicationContext()))
+        {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+            startActivity(intent);
+        }
+
+        if (Settings.System.canWrite(getApplicationContext()))
+        {
+            if(event.sensor.getType() == Sensor.TYPE_LIGHT);
+            {
+                int myBrightness = (int) event.values[0];
+                Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, myBrightness);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy)
+    {
+
+    }
+
 }
 
 class Usuario

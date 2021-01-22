@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +28,8 @@ public class MainActivity extends Activity implements SensorEventListener {
     FirebaseUser user;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView (R.layout.activity_main);
 
@@ -44,12 +44,14 @@ public class MainActivity extends Activity implements SensorEventListener {
                 {
                     Intent intentMaps= new Intent(MainActivity.this, MapsActivity.class);
                     startActivity(intentMaps);
-                }else{
+                }else
+                {
                     Intent intentLI= new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intentLI);
                 }
             }
         },4000);
+
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
