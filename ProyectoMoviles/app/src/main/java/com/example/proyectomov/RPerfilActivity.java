@@ -8,11 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,11 +30,15 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -53,6 +59,10 @@ public class RPerfilActivity extends Activity {
     public ImageButton btnTake;
     public ImageButton btnGallery;
 
+    FirebaseUser user;
+    FirebaseStorage storage;
+
+    String pPuri;
 
     ImageView iv;
 
@@ -66,6 +76,9 @@ public class RPerfilActivity extends Activity {
         Toolbar toolbar = findViewById (R.id.toolbar);
         setActionBar (Objects.requireNonNull (toolbar));
         toolbar.setNavigationIcon(R.drawable.ic_action_name); //Define icono para toolbar
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        storage = FirebaseStorage.getInstance ();
 
         edNombre=findViewById(R.id.etNombre);
         edEstado=findViewById(R.id.etEstado);
@@ -142,6 +155,36 @@ public class RPerfilActivity extends Activity {
 
     }
 
+    private void guardarPFenStorage(){
+        StorageReference imagesFolder = storage.getReference ("profilePhotos/");
+        StorageReference  image = imagesFolder.child (user.getUid()+"_pP.png");
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream ();
+        Bitmap bitmap = getBitmapFromDrawable (iv.getDrawable ());
+        bitmap.compress (Bitmap.CompressFormat.PNG, 100, bos);
+        byte [] buffer = bos.toByteArray ();
+
+        image.putBytes (buffer)
+                .addOnFailureListener (e -> {
+                    Toast.makeText (getBaseContext (), "Error uploading file: " + e.getMessage (), Toast.LENGTH_LONG).show ();
+                    Log.e ("TYAM", "Error uploading file: " + e.getMessage ());
+                })
+                .addOnCompleteListener (task -> {
+                    if (task.isComplete ()) {
+                        Task<Uri> getUriTask = image.getDownloadUrl ();
+
+                        getUriTask.addOnCompleteListener (t -> {
+                            Uri uri = t.getResult ();
+                            if (uri == null) return;
+
+                            pPuri=uri.toString();
+                            Toast.makeText (getBaseContext (), "Download URL " + uri.toString (), Toast.LENGTH_LONG).show ();
+                            Log.i ("TYAM", "Download URL " + uri.toString ());
+                        });
+                    }
+                });
+
+    }
 
     private Bitmap getBitmapFromDrawable (Drawable drble)
     {
@@ -158,8 +201,6 @@ public class RPerfilActivity extends Activity {
 
     private void guardarUsuario() {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         Usuario duser = new Usuario();
 
         Editable eedNombre=edNombre.getText();
@@ -169,9 +210,11 @@ public class RPerfilActivity extends Activity {
         if (user != null) {
             duser.nombre = eedNombre.toString();
             duser.ciudad = eedEstado.toString();
-            duser.appPhoto="/";
             duser.appPhone=eedPhone.toString();
 
+            guardarPFenStorage();
+
+            duser.appPhoto=pPuri;
 
             if (cbEsc.isChecked())
                 duser.esc = 1;
