@@ -1,8 +1,15 @@
 package com.example.proyectomov.ui.login;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +20,7 @@ import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectomov.PerfilActivity;
@@ -24,7 +32,10 @@ import java.util.Objects;
 
 import static java.security.AccessController.getContext;
 
-public class RegisterUserActivity extends Activity {
+public class RegisterUserActivity extends Activity implements SensorEventListener
+{
+    SensorManager sensorManager;
+    Sensor sensor;
     private FirebaseAuth auth;
 
     @Override
@@ -52,6 +63,9 @@ public class RegisterUserActivity extends Activity {
 
         EditText edtEmail = findViewById (R.id.etEmailLogin);
         EditText edtPassword = findViewById (R.id.etPasswordlLogin);
+
+        sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
         Button btnRegister = findViewById (R.id.btnRegister);
         btnRegister.setOnClickListener (v -> {
@@ -92,12 +106,42 @@ public class RegisterUserActivity extends Activity {
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
+        sensorManager.unregisterListener(this);
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onSensorChanged(SensorEvent event)
+    {
+        if (!Settings.System.canWrite(getApplicationContext()))
+        {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+            startActivity(intent);
+        }
+
+        if (Settings.System.canWrite(getApplicationContext()))
+        {
+            if(event.sensor.getType() == Sensor.TYPE_LIGHT);
+            {
+                int myBrightness = (int) event.values[0];
+                Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, myBrightness);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy)
+    {
+
     }
 }

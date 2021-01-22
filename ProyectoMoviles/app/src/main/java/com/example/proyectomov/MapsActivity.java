@@ -21,8 +21,10 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toolbar;
 
+import com.example.proyectomov.ui.login.RegisterUserActivity;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -62,6 +64,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        Button btnRegister = findViewById(R.id.btnClinicas);
+        btnRegister.setOnClickListener(v -> {
+            Intent intentRegister= new Intent(this, MapaListActivity.class);
+            startActivity(intentRegister);
+        });
     }
 
     @Override
