@@ -79,8 +79,11 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         if (Settings.System.canWrite(getApplicationContext()))
         {
-            int myBrightness = 0;
-            Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, myBrightness);
+            if(event.sensor.getType() == Sensor.TYPE_LIGHT);
+            {
+                int myBrightness = (int) event.values[0];
+                Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, myBrightness);
+            }
         }
     }
 
