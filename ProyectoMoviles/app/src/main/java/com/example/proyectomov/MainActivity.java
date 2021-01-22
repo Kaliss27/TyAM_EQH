@@ -18,11 +18,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.example.proyectomov.ui.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
     SensorManager sensorManager;
     Sensor sensor;
+
+    FirebaseUser user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,8 +38,16 @@ public class MainActivity extends Activity implements SensorEventListener {
             @Override
             public void run()
             {
-                Intent intentLI= new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intentLI);
+
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user != null)
+                {
+                    Intent intentMaps= new Intent(MainActivity.this, MapsActivity.class);
+                    startActivity(intentMaps);
+                }else{
+                    Intent intentLI= new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intentLI);
+                }
             }
         },4000);
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
