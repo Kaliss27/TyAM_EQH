@@ -8,6 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,12 +24,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -46,23 +51,24 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class RPerfilActivity extends Activity {
+public class RClinica extends Activity {
     public static final int REQUEST_CAMERA_OPEN = 4001;
     public static final int REQUEST_PERMISSION_CAMERA = 3001;
 
     public EditText edNombre;
-    public EditText edEstado;
+    public EditText edDirr;
     public EditText edPhone;
 
-    public CheckBox cbEsc;
-    public CheckBox cbInd;
+    public TextView tvUbi;
+    double lat = 0.0;
+    double lng = 0.0;
+
     public ImageButton btnTake;
     public ImageButton btnGallery;
+    public ImageButton btnUbi;
 
     FirebaseUser user;
     FirebaseStorage storage;
-
-    String pPuri;
 
     ImageView iv;
 
@@ -70,7 +76,7 @@ public class RPerfilActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registro_perfil);
+        setContentView(R.layout.registro_perfil_c);
 
         //Define Toolbar
         Toolbar toolbar = findViewById (R.id.toolbar);
@@ -81,16 +87,13 @@ public class RPerfilActivity extends Activity {
         storage = FirebaseStorage.getInstance ();
 
         edNombre=findViewById(R.id.etNombre);
-        edEstado=findViewById(R.id.etEstado);
+        edDirr=findViewById(R.id.etDirr);
         edPhone=findViewById(R.id.etPhone);
 
-        cbEsc=findViewById(R.id.checkbox_esc);
-        cbInd=findViewById(R.id.checkbox_ind);
 
         iv=findViewById(R.id.ivSource);
 
         btnTake=findViewById(R.id.imageButtonC);
-
         btnTake.setOnClickListener(v->{
 
             int perm = checkSelfPermission (Manifest.permission.CAMERA);
@@ -107,22 +110,28 @@ public class RPerfilActivity extends Activity {
             tomarFotoP();
         });
 
+        tvUbi=findViewById(R.id.tvUbi2);
+        btnUbi=findViewById(R.id.imageButtonU);
+        btnUbi.setOnClickListener(v->{
+            miUbicacion();
+        });
 
         btnGallery=findViewById(R.id.imageButtonG);
         btnGallery.setOnClickListener(v->{
             buscarFotoP();
         });
 
+
         Button regBtn= findViewById(R.id.btnRegister);
         regBtn.setOnClickListener( v ->{
-                    guardarUsuario();
+                    guardarClinica();
                 }
         );
     }
 
     private void tomarFotoP() {
-       Intent intentC = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-       startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
+        Intent intentC = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -144,7 +153,6 @@ public class RPerfilActivity extends Activity {
                 }
                 break;
         }
-
     }
 
 
@@ -172,8 +180,8 @@ public class RPerfilActivity extends Activity {
     }
 
     private void guardarPFenStorage(){
-        StorageReference imagesFolder = storage.getReference ("profilePhotos/");
-        StorageReference  image = imagesFolder.child (user.getUid()+"_pP.png");
+        StorageReference imagesFolder = storage.getReference ("clinicsPhotos/");
+        StorageReference  image = imagesFolder.child (user.getUid()+"_cP.png");
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream ();
         Bitmap bitmap = getBitmapFromDrawable (iv.getDrawable ());
@@ -192,7 +200,6 @@ public class RPerfilActivity extends Activity {
                             Uri uri = t.getResult ();
                             if (uri == null) return;
 
-                            pPuri=getUriTask.toString();
                             Toast.makeText (getBaseContext (), "Download URL " + uri.toString (), Toast.LENGTH_LONG).show ();
                             Log.i ("TYAM", "Download URL " + uri.toString ());
                         });
@@ -214,49 +221,87 @@ public class RPerfilActivity extends Activity {
         return bitmap;
     }
 
-    private void guardarUsuario() {
+    private void miUbicacion()
+    {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_FINE_LOCATION))
+            {
+            }
+            else
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+            }
+            return;
+        }
+        LocationManager locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        actualizarUbicacion(location);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,15000,0,loclistener);
+    }
 
-        Usuario duser = new Usuario();
+    private void actualizarUbicacion(Location location) {
+        if (location != null)
+        {
+            lat = location.getLatitude();
+            lng = location.getLongitude();
+            tvUbi.setText("lat:"+lat+"/ lng:"+lng);
+        }
+    }
+
+    LocationListener loclistener = new LocationListener()
+    {
+        @Override
+        public void onLocationChanged(@NonNull Location location) {
+            actualizarUbicacion(location);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+        @Override
+        public void onProviderEnabled(@NonNull String provider) {}
+
+        @Override
+        public void onProviderDisabled(@NonNull String provider) {}
+    };
+
+    private void guardarClinica() {
+
+        Clinica clinica = new Clinica();
 
         Editable eedNombre=edNombre.getText();
-        Editable eedEstado=edEstado.getText();
+        Editable eeDirr=edDirr.getText();
         Editable eedPhone=edPhone.getText();
 
 
+
         if (user != null) {
-            duser.nombre = eedNombre.toString();
-            duser.ciudad = eedEstado.toString();
-            duser.appPhone=eedPhone.toString();
+            clinica.nombreC = eedNombre.toString();
+            clinica.dirrC = eeDirr.toString();
+            clinica.phoneC=eedPhone.toString();
 
             guardarPFenStorage();
 
-            duser.appPhoto=pPuri;
+           // miUbicacion();
+            clinica.lat=lat;
+            clinica.lng=lng;
 
-            if (cbEsc.isChecked())
-                duser.esc = 1;
-            if (cbInd.isChecked())
-                duser.ind = 1;
+
         } else {
             Toast.makeText(getBaseContext(), "No hay permiso de escritura", Toast.LENGTH_LONG).show();
         }
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference users = database.getReference("Usuarios");
+        DatabaseReference users = database.getReference("Clinica");
 
         HashMap<String, Object> node = new HashMap<>();
-        node.put(user.getUid(), duser);
+        node.put(user.getUid()+"_C", clinica);
 
         users.updateChildren(node)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getBaseContext(), "Datos registrados correctamente", Toast.LENGTH_LONG).show();
-                    if(duser.esc!=1)
-                    {
-                        Intent actMaps=new Intent(this,MapsActivity.class);
-                        startActivity(actMaps);
-                    }else{
-                        Intent actRC=new Intent(this,RClinica.class);
-                        startActivity(actRC);
-                    }
+                    Intent actMaps=new Intent(this,MapsActivity.class);
+                    startActivity(actMaps);
                 })
                 .addOnFailureListener(e -> Toast.makeText(getBaseContext(), "Error al registrar los datos " + e.getMessage(), Toast.LENGTH_LONG).show());
     }
@@ -267,13 +312,11 @@ public class RPerfilActivity extends Activity {
     }
 }
 
-class Usuario
+class Clinica
 {
-    public String nombre;
-    public String ciudad;
-    public String appPhoto;
-    public String appPhone;
-    public int esc;
-    public int ind;
+    public String nombreC;
+    public String dirrC;
+    public String phoneC;
+    public double lat;
+    public double lng;
 }
-

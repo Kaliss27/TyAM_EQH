@@ -15,6 +15,14 @@
         android:layout_height="?attr/actionBarSize"
         tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:text="Datos de la Clinica"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +36,7 @@
             android:id="@+id/tvNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre"
+            android:text="Nombre Clinica"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
         <EditText
@@ -48,18 +56,17 @@
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/etEstado"
             />
         <TextView
-            android:id="@+id/tvEstado"
+            android:id="@+id/tvDirr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Estado"
+            android:text="Dirección"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
             />
 
         <EditText
-            android:id="@+id/etEstado"
+            android:id="@+id/etDirr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -70,27 +77,74 @@
             android:orientation="horizontal"
             android:layout_below="@id/etEstado">
 
-            <CheckBox
-                android:id="@+id/checkbox_esc"
+            <TextView
+                android:id="@+id/tvUbi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
-                android:text="Escuela"
-                android:onClick="onCheckboxClicked"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                android:text="Ubicación en mapa"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                />
 
-            <CheckBox
-                android:id="@+id/checkbox_ind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Individual"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+            <ImageButton
+                android:id="@+id/imageButtonU"
+                android:layout_width="40dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="50dp"
+                android:backgroundTint="@color/blanco"
+                android:src="@drawable/ic_baseline_add_location_24"
+                tools:ignore="MissingConstraints" />
+
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tvUbi2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/uv_blueP"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            >
+            <TextView
+                android:id="@+id/tvOpPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Foto de perfil"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                />
+            <ImageButton
+                android:id="@+id/imageButtonC"
+                android:layout_width="40dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="50dp"
+                android:backgroundTint="@color/blanco"
+                android:src="@drawable/ic_baseline_photo_camera_24"
+                tools:ignore="MissingConstraints" />
+
+            <ImageButton
+                android:id="@+id/imageButtonG"
+                android:layout_width="40dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="50dp"
+                android:backgroundTint="@color/blanco"
+                android:src="@drawable/ic_baseline_collections_24"
+                tools:ignore="MissingConstraints" />
+
+        </LinearLayout>
     </LinearLayout>
 
-
+    <ImageView
+        android:id="@+id/ivSource"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:padding="5dp"
+        android:src="@drawable/ic_baseline_person_24" />
 
     <Button
         android:id="@+id/btnRegister"
