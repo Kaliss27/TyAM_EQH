@@ -19,7 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class RPerfilActivity extends FragmentActivity {
+public class RPerfilActivity extends FragmentActivity
+{
     public EditText edNombre;
     public EditText edEstado;
     public EditText edPhone;
@@ -28,7 +29,8 @@ public class RPerfilActivity extends FragmentActivity {
     public CheckBox cbInd;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro_perfil);
 
@@ -51,8 +53,8 @@ public class RPerfilActivity extends FragmentActivity {
         );
     }
 
-    private void guardarUsuario() {
-
+    private void guardarUsuario()
+    {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         Usuario duser = new Usuario();

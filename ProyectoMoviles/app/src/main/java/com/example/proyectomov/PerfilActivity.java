@@ -1,27 +1,32 @@
 package com.example.proyectomov;
 
-import android.app.Activity;
+import android.app.Service;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import java.util.Objects;
 
 
-public class PerfilActivity extends FragmentActivity {
+public class PerfilActivity extends FragmentActivity implements SensorEventListener
+{
+
+    SensorManager sensorManager;
+    Sensor sensor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,9 +41,8 @@ public class PerfilActivity extends FragmentActivity {
         ImageButton edit1=findViewById(R.id.imageButton);
         ImageButton edit2=findViewById(R.id.imageButton2);
 
-
-
-
+        sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
     @Override
     protected void onStart() {
@@ -56,13 +60,43 @@ public class PerfilActivity extends FragmentActivity {
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
+        sensorManager.unregisterListener(this);
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onSensorChanged(SensorEvent event)
+    {
+        if (!Settings.System.canWrite(getApplicationContext()))
+        {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+            startActivity(intent);
+        }
+
+        if (Settings.System.canWrite(getApplicationContext()))
+        {
+            if(event.sensor.getType() == Sensor.TYPE_LIGHT);
+            {
+                int myBrightness = (int) event.values[0];
+                Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, myBrightness);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy)
+    {
+
     }
 
     @Override
