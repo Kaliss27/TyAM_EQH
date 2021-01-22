@@ -125,16 +125,33 @@ public class RPerfilActivity extends Activity {
        startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISSION_CAMERA)
+
+        switch (requestCode)
+        {
+            case 4001:
+                if (grantResults.length > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    tomarFotoP ();
+                }
+            case 1001:
+                if (grantResults.length > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    buscarFotoP ();
+                }
+                break;
+        }
+
+      /*  if (requestCode == REQUEST_PERMISSION_CAMERA)
         {
             if (grantResults.length > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED)
             {
                 tomarFotoP ();
             }
-        }
+        }*/
     }
 
 
@@ -148,11 +165,17 @@ public class RPerfilActivity extends Activity {
         }
     }
 
-
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void buscarFotoP() {
-
-
+        int perm = checkSelfPermission (Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (perm != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions (
+                    new String [] { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                    1001
+            );
+            return;
+        }
     }
 
     private void guardarPFenStorage(){
@@ -166,8 +189,7 @@ public class RPerfilActivity extends Activity {
 
         image.putBytes (buffer)
                 .addOnFailureListener (e -> {
-                    Toast.makeText (getBaseContext (), "Error uploading file: " + e.getMessage (), Toast.LENGTH_LONG).show ();
-                    Log.e ("TYAM", "Error uploading file: " + e.getMessage ());
+                    Toast.makeText (getBaseContext (), "Error al guardar la imagen: " + e.getMessage (), Toast.LENGTH_LONG).show ();
                 })
                 .addOnCompleteListener (task -> {
                     if (task.isComplete ()) {
@@ -241,17 +263,6 @@ public class RPerfilActivity extends Activity {
                 .addOnFailureListener(e -> Toast.makeText(getBaseContext(), "Error al registrar los datos " + e.getMessage(), Toast.LENGTH_LONG).show());
     }
 
-    /*public void onCheckboxClicked(View view) {
-        if(cbEsc.isChecked())
-        {
-            frgDC.setVisibility(View.VISIBLE);
-            edNombreC=frgDC.findViewById(R.id.etCNombre);
-            edCiudadC=frgDC.findViewById(R.id.etCiudad);
-            edPhoneC=frgDC.findViewById(R.id.etCPhone);
-        }
-        else
-            frgDC.setVisibility(View.GONE);
-    }*/
     @Override
     protected void onStart() {
         super.onStart();
