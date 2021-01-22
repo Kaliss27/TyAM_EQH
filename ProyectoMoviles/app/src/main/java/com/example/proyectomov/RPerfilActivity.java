@@ -177,7 +177,7 @@ public class RPerfilActivity extends Activity {
                             Uri uri = t.getResult ();
                             if (uri == null) return;
 
-                            pPuri=uri.toString();
+                            pPuri=getUriTask.toString();
                             Toast.makeText (getBaseContext (), "Download URL " + uri.toString (), Toast.LENGTH_LONG).show ();
                             Log.i ("TYAM", "Download URL " + uri.toString ());
                         });
@@ -207,6 +207,7 @@ public class RPerfilActivity extends Activity {
         Editable eedEstado=edEstado.getText();
         Editable eedPhone=edPhone.getText();
 
+
         if (user != null) {
             duser.nombre = eedNombre.toString();
             duser.ciudad = eedEstado.toString();
@@ -233,6 +234,9 @@ public class RPerfilActivity extends Activity {
         users.updateChildren(node)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getBaseContext(), "Datos registrados correctamente", Toast.LENGTH_LONG).show();
+                    if(duser.esc!=1)
+                    {Intent actMaps=new Intent(this,MapsActivity.class);
+                    startActivity(actMaps);}
                 })
                 .addOnFailureListener(e -> Toast.makeText(getBaseContext(), "Error al registrar los datos " + e.getMessage(), Toast.LENGTH_LONG).show());
     }
