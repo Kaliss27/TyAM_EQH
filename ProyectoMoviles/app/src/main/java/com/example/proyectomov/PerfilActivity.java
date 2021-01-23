@@ -115,14 +115,14 @@ public class PerfilActivity extends FragmentActivity implements SensorEventListe
                 startActivity(nextAct);
                 return true;
 
-            case R.id.my_list:
+            /*case R.id.my_list:
                 nextAct= new Intent(this,MyListActivity.class);
                 startActivity(nextAct);
                 return true;
             case R.id.my_cont:
                 nextAct= new Intent(this,MyContActivity.class);
                 startActivity(nextAct);
-                return true;
+                return true;*/
 
             case R.id.recibidas:
                 nextAct= new Intent(this,RecepcionesActivity.class);
@@ -134,10 +134,11 @@ public class PerfilActivity extends FragmentActivity implements SensorEventListe
                 startActivity(nextAct);
                 return true;
 
-            case R.id.config:
+            /*case R.id.config:
                 nextAct= new Intent(this,ConfigActivity.class);
                 startActivity(nextAct);
-                return true;
+                return true;*/
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

@@ -49,6 +49,7 @@ public class RPerfilActivity extends Activity implements SensorEventListener
     SensorManager sensorManager;
     Sensor sensor;
 
+    public static final int SELECT_IMAGE_REQUEST_CODE = 2001;
     public static final int REQUEST_CAMERA_OPEN = 4001;
     public static final int REQUEST_PERMISSION_CAMERA = 3001;
 
@@ -111,8 +112,19 @@ public class RPerfilActivity extends Activity implements SensorEventListener
         });
 
 
-        btnGallery=findViewById(R.id.imageButtonG);
+        btnGallery = findViewById(R.id.imageButtonG);
         btnGallery.setOnClickListener(v->{
+            int perm = checkSelfPermission (Manifest.permission.READ_EXTERNAL_STORAGE);
+
+            if (perm != PackageManager.PERMISSION_GRANTED)
+            {
+                requestPermissions (
+                        new String [] { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                        1001
+                );
+                return;
+            }
+
             buscarFotoP();
         });
 
@@ -170,15 +182,13 @@ public class RPerfilActivity extends Activity implements SensorEventListener
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void buscarFotoP()
     {
-        int perm = checkSelfPermission (Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (perm != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions (
-                    new String [] { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE },
-                    1001
-            );
-            return;
-        }
+        Intent intent = new Intent (Intent.ACTION_PICK);
+        intent.setType ("image/*");
+
+        String [] mimeTypes = { "image/jpeg", "image/png", "image/jpg" };
+        intent.putExtra (Intent.EXTRA_MIME_TYPES, mimeTypes);
+
+        startActivityForResult (intent, SELECT_IMAGE_REQUEST_CODE);
     }
 
     private void guardarPFenStorage()
@@ -318,7 +328,6 @@ public class RPerfilActivity extends Activity implements SensorEventListener
     {
 
     }
-
 }
 
 class Usuario
