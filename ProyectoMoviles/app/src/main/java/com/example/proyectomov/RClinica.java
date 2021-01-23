@@ -183,14 +183,15 @@ public class RClinica extends Activity implements SensorEventListener
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CAMERA_OPEN && resultCode == RESULT_OK)
-        {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            iv.setImageBitmap (bitmap);
+    public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data == null) return;
+
+            Uri uri = data.getData ();
+            iv.setImageURI (uri);
         }
+
+        super.onActivityResult (requestCode, resultCode, data);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

@@ -41,7 +41,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 
 public class RPerfilActivity extends Activity implements SensorEventListener
@@ -167,16 +169,16 @@ public class RPerfilActivity extends Activity implements SensorEventListener
 
     }
 
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CAMERA_OPEN && resultCode == RESULT_OK)
-        {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            iv.setImageBitmap (bitmap);
+    public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data == null) return;
+
+            Uri uri = data.getData ();
+            iv.setImageURI (uri);
         }
+
+        super.onActivityResult (requestCode, resultCode, data);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -196,9 +198,9 @@ public class RPerfilActivity extends Activity implements SensorEventListener
         StorageReference imagesFolder = storage.getReference ("profilePhotos/");
         StorageReference  image = imagesFolder.child (user.getUid()+"_pP.png");
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream ();
         Bitmap bitmap = getBitmapFromDrawable (iv.getDrawable ());
-        bitmap.compress (Bitmap.CompressFormat.PNG, 100, bos);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream ();
+        bitmap.compress (Bitmap.CompressFormat.JPEG, 100, bos);
         byte [] buffer = bos.toByteArray ();
 
         image.putBytes (buffer)
