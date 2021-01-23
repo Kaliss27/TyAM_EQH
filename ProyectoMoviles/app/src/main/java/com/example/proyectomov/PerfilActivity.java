@@ -108,24 +108,10 @@ public class PerfilActivity extends FragmentActivity implements SensorEventListe
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent nextAct;
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case R.id.perfil:
-                //Toast.makeText ( this, "Perfil!", Toast.LENGTH_LONG).show ();
                 nextAct= new Intent(this,PerfilActivity.class);
-                startActivity(nextAct);
-                return true;
-
-            /*case R.id.my_list:
-                nextAct= new Intent(this,MyListActivity.class);
-                startActivity(nextAct);
-                return true;
-            case R.id.my_cont:
-                nextAct= new Intent(this,MyContActivity.class);
-                startActivity(nextAct);
-                return true;*/
-
-            case R.id.recibidas:
-                nextAct= new Intent(this,RecepcionesActivity.class);
                 startActivity(nextAct);
                 return true;
 
@@ -134,14 +120,21 @@ public class PerfilActivity extends FragmentActivity implements SensorEventListe
                 startActivity(nextAct);
                 return true;
 
-            /*case R.id.config:
-                nextAct= new Intent(this,ConfigActivity.class);
+
+            case R.id.my_list:
+                nextAct= new Intent(this,MedicSolicitadoActivity.class);
                 startActivity(nextAct);
-                return true;*/
+                return true;
+
+            case R.id.perfil_c:
+                nextAct= new Intent(this,Clinica.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.c_sesion:
+                finish();
 
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
     }

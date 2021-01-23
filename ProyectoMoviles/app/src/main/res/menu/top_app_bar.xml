@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Usuarios con solo permiso de Donadores!-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/perfil"
         android:title="@string/perfil" />
 
     <item
-        android:id="@+id/my_list"
-        android:title="@string/my_list" />
-
-    <item
-        android:id="@+id/my_cont"
-        android:title="@string/my_cont" />
-
-    <item
-        android:id="@+id/recibidas"
-        android:title="@string/recibidas" />
-
-    <item
         android:id="@+id/map"
         android:title="@string/map" />
 
     <item
-        android:id="@+id/config"
-        android:title="@string/config" />
+        android:id="@+id/c_sesion"
+        android:title="@string/c_sesion" />
 </menu>

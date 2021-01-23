@@ -67,17 +67,24 @@ public class MedicSolicitadoActivity extends FragmentActivity implements OnMapRe
                 startActivity(nextAct);
                 return true;
 
-
-            case R.id.recibidas:
-                nextAct= new Intent(this,RecepcionesActivity.class);
-                startActivity(nextAct);
-                return true;
-
             case R.id.map:
                 nextAct= new Intent(this,MapsActivity.class);
                 startActivity(nextAct);
                 return true;
 
+
+            case R.id.my_list:
+                nextAct= new Intent(this,MedicSolicitadoActivity.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.perfil_c:
+                nextAct= new Intent(this,Clinica.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.c_sesion:
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);
