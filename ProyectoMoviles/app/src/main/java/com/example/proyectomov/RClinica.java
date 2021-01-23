@@ -51,9 +51,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class RClinica extends Activity
-{
-    private static final int SELECT_IMAGE_REQUEST_CODE = 2001;
+public class RClinica extends Activity {
     public static final int REQUEST_CAMERA_OPEN = 4001;
     public static final int REQUEST_PERMISSION_CAMERA = 3001;
 
@@ -169,15 +167,16 @@ public class RClinica extends Activity
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void buscarFotoP()
-    {
-        Intent intent = new Intent (Intent.ACTION_PICK);
-        intent.setType ("image/*");
-
-        String [] mimeTypes = { "image/jpeg", "image/png" };
-        intent.putExtra (Intent.EXTRA_MIME_TYPES, mimeTypes);
-
-        startActivityForResult (intent, SELECT_IMAGE_REQUEST_CODE);
+    private void buscarFotoP() {
+        int perm = checkSelfPermission (Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (perm != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions (
+                    new String [] { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                    1001
+            );
+            return;
+        }
     }
 
     private void guardarPFenStorage(){

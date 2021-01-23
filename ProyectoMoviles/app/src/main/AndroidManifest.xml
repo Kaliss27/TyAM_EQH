@@ -37,61 +37,59 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/page_title"
             android:screenOrientation="portrait">
+            <!--<intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>!-->
         </activity>
 
         <activity
             android:name=".ui.login.RegisterUserActivity"
             android:label="@string/page_title"
             android:screenOrientation="portrait">
+            <!--<intent-filter>
+                 <category android:name="android.intent.category.LAUNCHER" />
+                 <action android:name="android.intent.action.MAIN" />
+             </intent-filter>!-->
         </activity>
 
         <activity
             android:name=".PerfilActivity"
             android:label="@string/page_title"
             android:screenOrientation="portrait">
+            <!--<intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>!-->
         </activity>
 
         <activity
             android:name=".MapsActivity"
             android:label="@string/page_title"
             android:screenOrientation="portrait">
+           <!-- <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>!-->
         </activity>
 
         <activity android:name=".RPerfilActivity"
             android:screenOrientation="portrait"
             android:label="Med-UV">
+            <!--<intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>!-->
         </activity>
 
         <activity android:name=".RClinica"
             android:screenOrientation="portrait"
             android:label="Med-UV">
+            <!--<intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>!-->
         </activity>
-
-        <activity android:name=".MapaListActivity"
-            android:screenOrientation="portrait"
-            android:label="Med-UV">
-        </activity>
-
-        <activity android:name=".MyListActivity"
-            android:screenOrientation="portrait"
-            android:label="Med-UV">
-        </activity>
-
-        <activity android:name=".MyContActivity"
-            android:screenOrientation="portrait"
-            android:label="Med-UV">
-        </activity>
-
-        <activity android:name=".RecepcionesActivity"
-            android:screenOrientation="portrait"
-            android:label="Med-UV">
-        </activity>
-
-        <activity android:name=".ConfigActivity"
-            android:screenOrientation="portrait"
-            android:label="Med-UV">
-        </activity>
-
     </application>
 
 </manifest>

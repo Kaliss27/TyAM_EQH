@@ -21,6 +21,6 @@
         android:title="@string/map" />
 
     <item
-        android:id="@+id/c_sesion"
-        android:title="@string/c_sesion" />
+        android:id="@+id/config"
+        android:title="@string/config" />
 </menu>

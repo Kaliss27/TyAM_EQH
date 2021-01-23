@@ -23,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toolbar;
 
-import com.example.proyectomov.ui.login.LoginActivity;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -68,11 +67,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater ().inflate (R.menu.top_app_bar2, menu);
+        getMenuInflater ().inflate (R.menu.top_app_bar, menu);
         return super.onCreateOptionsMenu(menu);
-
-        //getMenuInflater ().inflate (R.menu.top_app_bar3, menu);
-        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -91,14 +87,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(nextAct);
                 return true;
 
+            case R.id.my_cont:
+                nextAct= new Intent(this,MyContActivity.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.recibidas:
+                nextAct= new Intent(this,RecepcionesActivity.class);
+                startActivity(nextAct);
+                return true;
+
             case R.id.map:
                 nextAct= new Intent(this,MapaListActivity.class);
                 startActivity(nextAct);
                 return true;
 
-            case R.id.c_sesion:
-                finish();
-                nextAct= new Intent(this,LoginActivity.class);
+            case R.id.config:
+                nextAct= new Intent(this,ConfigActivity.class);
                 startActivity(nextAct);
                 return true;
 
