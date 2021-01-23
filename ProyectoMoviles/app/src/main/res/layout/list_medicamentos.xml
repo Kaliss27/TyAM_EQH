@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:titleTextColor="#fff"
+        android:background="@color/uv_blueP"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        android:layout_height="?attr/actionBarSize"
+        tools:ignore="MissingConstraints" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/page_title"
-            app:menu="@menu/top_app_bar"
-            app:navigationIcon="@drawable/ic_action_name"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            />
-    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title1"
+        android:layout_gravity="center_horizontal"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="73dp" />
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+    />
 
     <View
         android:id="@+id/divider2"
@@ -45,79 +40,97 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Medicamento"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="107dp"
+        android:layout_marginStart="20dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:layout_width="182dp"
-        android:layout_height="20dp"
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="107dp"
+        android:id="@+id/edMedc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         tools:ignore="MissingConstraints" />
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cantidad Requerida"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="143dp"
+        android:layout_marginStart="20dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         tools:ignore="MissingConstraints" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="179dp"
-        android:layout_height="20dp"
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="143dp"
-        tools:ignore="MissingConstraints" />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="186dp"
-        tools:ignore="MissingConstraints" />
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        >
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_edit"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="188dp"
-        tools:ignore="MissingConstraints" />
+        <ImageButton
+            android:id="@+id/imageBtnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blanco"
+            android:layout_marginStart="50dp"
+            app:srcCompat="@drawable/ic_baseline_add_24"
+            tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_delete"
-        tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="188dp"
-        tools:ignore="MissingConstraints" />
 
+        <ImageButton
+            android:id="@+id/imageBtnD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginEnd="50dp"
+            android:backgroundTint="@color/blanco"
+            app:srcCompat="@drawable/ic_baseline_close_24"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lista de Medicamentos"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="276dp" />
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        tools:ignore="MissingConstraints" />
+
+    <ScrollView
+        android:id="@+id/scrollViewT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+    </ScrollView>
+
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="Realizar Solicitud"
-        tools:layout_editor_absoluteX="110dp"
-        tools:layout_editor_absoluteY="651dp"
         tools:ignore="MissingConstraints" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
