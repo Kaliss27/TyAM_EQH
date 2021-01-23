@@ -1,10 +1,5 @@
 package com.example.proyectomov;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
@@ -23,6 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -107,7 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return true;
 
             case R.id.perfil_c:
-                nextAct= new Intent(this,Clinica.class);
+                nextAct= new Intent(this,PerfilClinicaActivity.class);
                 startActivity(nextAct);
                 return true;
 

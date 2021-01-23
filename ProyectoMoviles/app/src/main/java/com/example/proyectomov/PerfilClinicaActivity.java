@@ -6,44 +6,91 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Spinner;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.Marker;
 
 import java.util.Objects;
 
-public class MedicSolicitadoActivity extends FragmentActivity implements OnMapReadyCallback, SensorEventListener {
 
+public class PerfilClinicaActivity extends FragmentActivity implements SensorEventListener
+{
     SensorManager sensorManager;
     Sensor sensor;
-    private GoogleMap mMap;
-    private Marker marcador;
-
-    Editable medcName;
-    Spinner spnn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_medicamentos);
+        setContentView(R.layout.activity_perfil_c);
 
+        //Define Toolbar
         Toolbar toolbar = findViewById (R.id.toolbar);
         setActionBar (Objects.requireNonNull (toolbar));
         toolbar.setNavigationIcon(R.drawable.ic_action_name); //Define icono para toolbar
 
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onSensorChanged(SensorEvent event)
+    {
+        if (!Settings.System.canWrite(getApplicationContext()))
+        {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+            startActivity(intent);
+        }
+
+        if (Settings.System.canWrite(getApplicationContext()))
+        {
+            if(event.sensor.getType() == Sensor.TYPE_LIGHT);
+            {
+                int myBrightness = (int) event.values[0];
+                Settings.System.putInt(getApplicationContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, myBrightness);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy)
+    {
 
     }
 
@@ -59,7 +106,7 @@ public class MedicSolicitadoActivity extends FragmentActivity implements OnMapRe
         switch (item.getItemId())
         {
             case R.id.perfil:
-                nextAct= new Intent(this,PerfilActivity.class);
+                nextAct= new Intent(this, PerfilClinicaActivity.class);
                 startActivity(nextAct);
                 return true;
 
@@ -68,14 +115,13 @@ public class MedicSolicitadoActivity extends FragmentActivity implements OnMapRe
                 startActivity(nextAct);
                 return true;
 
-
             case R.id.my_list:
                 nextAct= new Intent(this,MedicSolicitadoActivity.class);
                 startActivity(nextAct);
                 return true;
 
             case R.id.perfil_c:
-                    nextAct= new Intent(this,PerfilClinicaActivity.class);
+                nextAct= new Intent(this,Clinica.class);
                 startActivity(nextAct);
                 return true;
 
@@ -85,26 +131,5 @@ public class MedicSolicitadoActivity extends FragmentActivity implements OnMapRe
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
     }
 }

@@ -20,17 +20,22 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,6 +48,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Vector;
 
 public class RPerfilActivity extends Activity implements SensorEventListener
 {
@@ -418,4 +424,53 @@ class Usuario
         this.ind = ind;
     }
 }
+
+class MyAdater extends RecyclerView.Adapter<MyAdater.MyViewHolder>
+{
+    Vector<Usuario> data;
+
+    public MyAdater(Vector<Usuario> data) {
+        this.data = data;
+    }
+
+    @NonNull
+    @Override
+    public MyAdater.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.registro_perfil, parent, false);
+        return new MyViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyAdater.MyViewHolder holder, int position)
+    {
+        Usuario song = data.get(position);
+
+        holder.tvNombre.setText(song.nombre);
+        holder.tvCiudad.setText(song.ciudad);
+        holder.tvPhone.setText(song.appPhone);
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
+
+    static class MyViewHolder extends RecyclerView.ViewHolder
+    {
+        TextView tvNombre, tvCiudad, tvPhone;
+        //ImageView Photo;
+
+        public MyViewHolder(@NonNull View itemView)
+        {
+            super(itemView);
+
+            tvNombre = itemView.findViewById(R.id.textView);
+            tvCiudad = itemView.findViewById(R.id.textView2);
+            //Photo = itemView.findViewById(R.id.imageView3);
+            tvPhone = itemView.findViewById(R.id.textView3);
+        }
+    }
+}
+
 

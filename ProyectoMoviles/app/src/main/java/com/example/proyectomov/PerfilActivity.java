@@ -115,14 +115,13 @@ public class PerfilActivity extends FragmentActivity implements SensorEventListe
                 startActivity(nextAct);
                 return true;
 
-
             case R.id.my_list:
                 nextAct= new Intent(this,MedicSolicitadoActivity.class);
                 startActivity(nextAct);
                 return true;
 
             case R.id.perfil_c:
-                nextAct= new Intent(this,Clinica.class);
+                nextAct= new Intent(this,PerfilClinicaActivity.class);
                 startActivity(nextAct);
                 return true;
 
