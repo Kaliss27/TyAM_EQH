@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -39,6 +40,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     SensorManager sensorManager;
     Sensor sensor;
+    public CheckBox cbEsc;
+    public CheckBox cbInd;
     private GoogleMap mMap;
     private Marker marcador;
     double lat = 0.0;
@@ -47,6 +50,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        cbEsc=findViewById(R.id.checkbox_esc);
+        cbInd=findViewById(R.id.checkbox_ind);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
@@ -58,8 +64,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
@@ -67,8 +71,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater ().inflate (R.menu.top_app_bar, menu);
-        return super.onCreateOptionsMenu(menu);
+        //Usuario duser = new Usuario();
+        //if(duser.esc!=1)
+        //{
+            getMenuInflater ().inflate (R.menu.top_app_bar, menu);
+            return super.onCreateOptionsMenu(menu);
+        //}
+        //else
+        //{
+         //   getMenuInflater ().inflate (R.menu.top_app_bar2, menu);
+         //   return super.onCreateOptionsMenu(menu);
+        //}
     }
 
     @Override
@@ -82,30 +95,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(nextAct);
                 return true;
 
-            /*case R.id.my_list:
-                nextAct= new Intent(this,MyListActivity.class);
-                startActivity(nextAct);
-                return true;
-
-            case R.id.my_cont:
-                nextAct= new Intent(this,MyContActivity.class);
-                startActivity(nextAct);
-                return true;*/
-
-            case R.id.recibidas:
-                nextAct= new Intent(this,RecepcionesActivity.class);
-                startActivity(nextAct);
-                return true;
-
             case R.id.map:
                 nextAct= new Intent(this,MapaListActivity.class);
                 startActivity(nextAct);
                 return true;
 
-            /*case R.id.config:
-                nextAct= new Intent(this,ConfigActivity.class);
+
+            case R.id.my_list:
+                nextAct= new Intent(this,MedicSolicitadoActivity.class);
                 startActivity(nextAct);
-                return true;*/
+                return true;
+
+            case R.id.perfil_c:
+                nextAct= new Intent(this,Clinica.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.c_sesion:
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);

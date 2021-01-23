@@ -119,19 +119,17 @@
                 />
             <ImageButton
                 android:id="@+id/imageButtonC"
-                android:layout_width="40dp"
-                android:layout_height="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:backgroundTint="@color/blanco"
                 android:src="@drawable/ic_baseline_photo_camera_24"
                 tools:ignore="MissingConstraints" />
 
             <ImageButton
                 android:id="@+id/imageButtonG"
-                android:layout_width="40dp"
-                android:layout_height="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:backgroundTint="@color/blanco"
                 android:src="@drawable/ic_baseline_collections_24"
                 tools:ignore="MissingConstraints" />
 

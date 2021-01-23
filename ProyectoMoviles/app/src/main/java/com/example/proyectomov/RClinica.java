@@ -19,14 +19,11 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -38,8 +35,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,10 +45,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -154,12 +145,6 @@ public class RClinica extends Activity implements SensorEventListener
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
 
-    private void tomarFotoP()
-    {
-        Intent intentC = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -183,8 +168,16 @@ public class RClinica extends Activity implements SensorEventListener
 
 
     @Override
-    public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
+    public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data)
+    {
+        if (requestCode == REQUEST_CAMERA_OPEN && resultCode == RESULT_OK)
+        {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            iv.setImageBitmap(bitmap);
+        }
+
+        if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK)
+        {
             if (data == null) return;
 
             Uri uri = data.getData ();
@@ -192,6 +185,12 @@ public class RClinica extends Activity implements SensorEventListener
         }
 
         super.onActivityResult (requestCode, resultCode, data);
+    }
+
+    private void tomarFotoP()
+    {
+        Intent intentC = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

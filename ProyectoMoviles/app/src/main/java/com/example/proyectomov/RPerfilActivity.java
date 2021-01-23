@@ -41,9 +41,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Objects;
 
 public class RPerfilActivity extends Activity implements SensorEventListener
@@ -115,6 +113,7 @@ public class RPerfilActivity extends Activity implements SensorEventListener
 
 
         btnGallery = findViewById(R.id.imageButtonG);
+
         btnGallery.setOnClickListener(v->{
             int perm = checkSelfPermission (Manifest.permission.READ_EXTERNAL_STORAGE);
 
@@ -138,12 +137,6 @@ public class RPerfilActivity extends Activity implements SensorEventListener
 
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-    }
-
-    private void tomarFotoP()
-    {
-        Intent intentC = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -170,7 +163,14 @@ public class RPerfilActivity extends Activity implements SensorEventListener
     }
 
     @Override
-    public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data)
+    {
+        if (requestCode == REQUEST_CAMERA_OPEN && resultCode == RESULT_OK)
+        {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            iv.setImageBitmap(bitmap);
+        }
+
         if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
             if (data == null) return;
 
@@ -179,6 +179,12 @@ public class RPerfilActivity extends Activity implements SensorEventListener
         }
 
         super.onActivityResult (requestCode, resultCode, data);
+    }
+
+    private void tomarFotoP()
+    {
+        Intent intentC = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult (intentC, REQUEST_CAMERA_OPEN);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -249,7 +255,7 @@ public class RPerfilActivity extends Activity implements SensorEventListener
         {
             duser.nombre = eedNombre.toString();
             duser.ciudad = eedEstado.toString();
-            duser.appPhone=eedPhone.toString();
+            duser.appPhone = eedPhone.toString();
 
             guardarPFenStorage();
 

@@ -24,7 +24,6 @@ import java.util.Objects;
 
 public class PerfilActivity extends FragmentActivity implements SensorEventListener
 {
-
     SensorManager sensorManager;
     Sensor sensor;
 
