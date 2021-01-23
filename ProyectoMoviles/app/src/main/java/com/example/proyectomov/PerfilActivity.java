@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -36,9 +35,6 @@ public class PerfilActivity extends FragmentActivity implements SensorEventListe
         Toolbar toolbar = findViewById (R.id.toolbar);
         setActionBar (Objects.requireNonNull (toolbar));
         toolbar.setNavigationIcon(R.drawable.ic_action_name); //Define icono para toolbar
-
-        ImageButton edit1=findViewById(R.id.imageButton);
-        ImageButton edit2=findViewById(R.id.imageButton2);
 
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);

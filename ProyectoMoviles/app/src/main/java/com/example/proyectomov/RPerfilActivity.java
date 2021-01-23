@@ -346,5 +346,76 @@ class Usuario
     public String appPhone;
     public int esc;
     public int ind;
+
+    public Usuario (String nombre, String ciudad, String appPhoto, String appPhone, int esc, int ind)
+    {
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+        this.appPhoto = appPhoto;
+        this.appPhone = appPhone;
+        this.esc = esc;
+        this.ind = ind;
+    }
+    public Usuario(){}
+
+    public String getNombre()
+    {
+        return nombre;
+    }
+
+    public void setNombre(String nombre)
+    {
+        this.nombre = nombre;
+    }
+
+    public String getCiudad()
+    {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad)
+    {
+        this.ciudad = ciudad;
+    }
+
+    public String getPhoto()
+    {
+        return appPhoto;
+    }
+
+    public void setPhoto(String appPhoto)
+    {
+        this.appPhoto = appPhoto;
+    }
+
+    public String getPhone()
+    {
+        return appPhone;
+    }
+
+    public void setPhone(String appPhone)
+    {
+        this.appPhone = appPhone;
+    }
+
+    public int getEsc()
+    {
+        return esc;
+    }
+
+    public void setEsc(int esc)
+    {
+        this.esc = esc;
+    }
+
+    public int getInd()
+    {
+        return ind;
+    }
+
+    public void setInd(int ind)
+    {
+        this.ind = ind;
+    }
 }
 
