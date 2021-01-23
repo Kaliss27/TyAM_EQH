@@ -6,14 +6,10 @@
         android:title="@string/perfil" />
 
     <item
-        android:id="@+id/my_cont"
-        android:title="@string/my_cont" />
-
-    <item
         android:id="@+id/map"
         android:title="@string/map" />
 
     <item
-        android:id="@+id/config"
-        android:title="@string/config" />
+        android:id="@+id/c_sesion"
+        android:title="@string/c_sesion" />
 </menu>

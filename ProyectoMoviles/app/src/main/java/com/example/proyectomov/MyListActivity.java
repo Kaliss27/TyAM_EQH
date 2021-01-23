@@ -12,12 +12,11 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import java.util.Objects;
+import com.example.proyectomov.ui.login.LoginActivity;
 
 public class MyListActivity extends Activity implements SensorEventListener
 {
@@ -26,13 +25,8 @@ public class MyListActivity extends Activity implements SensorEventListener
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setContentView(R.layout.list_cont);
+        setContentView(R.layout.list_medc);
         super.onCreate(savedInstanceState);
-
-        //Define Toolbar
-        Toolbar toolbar = findViewById (R.id.toolbar);
-        setActionBar (Objects.requireNonNull (toolbar));
-        toolbar.setNavigationIcon(R.drawable.ic_action_name); //Define icono para toolbar
 
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -41,8 +35,11 @@ public class MyListActivity extends Activity implements SensorEventListener
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater ().inflate (R.menu.top_app_bar, menu);
+        getMenuInflater ().inflate (R.menu.top_app_bar2, menu);
         return super.onCreateOptionsMenu(menu);
+
+        //getMenuInflater ().inflate (R.menu.top_app_bar3, menu);
+        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -61,23 +58,14 @@ public class MyListActivity extends Activity implements SensorEventListener
                 startActivity(nextAct);
                 return true;
 
-            case R.id.my_cont:
-                nextAct= new Intent(this,MyContActivity.class);
-                startActivity(nextAct);
-                return true;
-
-            case R.id.recibidas:
-                nextAct= new Intent(this,RecepcionesActivity.class);
-                startActivity(nextAct);
-                return true;
-
             case R.id.map:
                 nextAct= new Intent(this,MapaListActivity.class);
                 startActivity(nextAct);
                 return true;
 
-            case R.id.config:
-                nextAct= new Intent(this,ConfigActivity.class);
+            case R.id.c_sesion:
+                finish();
+                nextAct= new Intent(this, LoginActivity.class);
                 startActivity(nextAct);
                 return true;
 

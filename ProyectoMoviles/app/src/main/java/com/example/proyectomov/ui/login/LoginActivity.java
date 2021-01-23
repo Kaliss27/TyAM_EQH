@@ -10,14 +10,11 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.example.proyectomov.MapsActivity;
@@ -41,7 +38,8 @@ public class LoginActivity extends Activity implements SensorEventListener {
         super.onStart();
     }
 
-    private void login(String email, String password) {
+    private void login(String email, String password)
+    {
         if(email.length()==0 || password.length()==0){
             Toast.makeText (this, "Rellene los campos", Toast.LENGTH_LONG).show ();
             return;
@@ -64,17 +62,6 @@ public class LoginActivity extends Activity implements SensorEventListener {
                         Toast.makeText (this, "Usuario y/o contraseña no reconocida!", Toast.LENGTH_LONG).show ();
                     }
                 });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater ().inflate (R.menu.only_top_app_bar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

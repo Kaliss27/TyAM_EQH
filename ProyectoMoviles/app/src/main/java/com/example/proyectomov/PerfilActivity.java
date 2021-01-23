@@ -19,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.proyectomov.ui.login.LoginActivity;
+
 import java.util.Objects;
 
 
@@ -100,17 +102,22 @@ public class PerfilActivity extends FragmentActivity implements SensorEventListe
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater ().inflate (R.menu.top_app_bar, menu);
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater ().inflate (R.menu.top_app_bar2, menu);
         return super.onCreateOptionsMenu(menu);
+
+        //getMenuInflater ().inflate (R.menu.top_app_bar3, menu);
+        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
         Intent nextAct;
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case R.id.perfil:
-                //Toast.makeText ( this, "Perfil!", Toast.LENGTH_LONG).show ();
                 nextAct= new Intent(this,PerfilActivity.class);
                 startActivity(nextAct);
                 return true;
@@ -119,28 +126,19 @@ public class PerfilActivity extends FragmentActivity implements SensorEventListe
                 nextAct= new Intent(this,MyListActivity.class);
                 startActivity(nextAct);
                 return true;
-            case R.id.my_cont:
-                nextAct= new Intent(this,MyContActivity.class);
-                startActivity(nextAct);
-                return true;
-
-            case R.id.recibidas:
-                nextAct= new Intent(this,RecepcionesActivity.class);
-                startActivity(nextAct);
-                return true;
 
             case R.id.map:
                 nextAct= new Intent(this,MapaListActivity.class);
                 startActivity(nextAct);
                 return true;
 
-            case R.id.config:
-                nextAct= new Intent(this,ConfigActivity.class);
+            case R.id.c_sesion:
+                finish();
+                nextAct= new Intent(this, LoginActivity.class);
                 startActivity(nextAct);
                 return true;
+
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
     }

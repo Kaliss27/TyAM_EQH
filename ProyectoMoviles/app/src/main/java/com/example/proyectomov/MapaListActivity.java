@@ -10,6 +10,8 @@ import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.proyectomov.ui.login.LoginActivity;
+
 import java.util.Objects;
 
 public class MapaListActivity extends Activity {
@@ -27,8 +29,11 @@ public class MapaListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater ().inflate (R.menu.top_app_bar, menu);
+        getMenuInflater ().inflate (R.menu.top_app_bar2, menu);
         return super.onCreateOptionsMenu(menu);
+
+        //getMenuInflater ().inflate (R.menu.top_app_bar3, menu);
+        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -37,37 +42,27 @@ public class MapaListActivity extends Activity {
         Intent nextAct;
         switch (item.getItemId()) {
             case R.id.perfil:
-                //Toast.makeText ( this, "Perfil!", Toast.LENGTH_LONG).show ();
-                nextAct= new Intent(this,PerfilActivity.class);
+                nextAct = new Intent(this, PerfilActivity.class);
                 startActivity(nextAct);
                 return true;
 
             case R.id.my_list:
-                nextAct= new Intent(this,MyListActivity.class);
-                startActivity(nextAct);
-                return true;
-            case R.id.my_cont:
-                nextAct= new Intent(this,MyContActivity.class);
-                startActivity(nextAct);
-                return true;
-
-            case R.id.recibidas:
-                nextAct= new Intent(this,RecepcionesActivity.class);
+                nextAct = new Intent(this, MyListActivity.class);
                 startActivity(nextAct);
                 return true;
 
             case R.id.map:
-                nextAct= new Intent(this,MapaListActivity.class);
+                nextAct = new Intent(this, MapaListActivity.class);
                 startActivity(nextAct);
                 return true;
 
-            case R.id.config:
-                nextAct= new Intent(this,ConfigActivity.class);
+            case R.id.c_sesion:
+                finish();
+                nextAct = new Intent(this, LoginActivity.class);
                 startActivity(nextAct);
                 return true;
+
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
     }
