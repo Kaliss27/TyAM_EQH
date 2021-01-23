@@ -24,10 +24,10 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/topAppBar"
+            android:layout_above="@id/toolbar"
             android:layout_alignParentLeft="true"
             android:orientation="horizontal"
-            tools:ignore="NotSibling">
+            tools:ignore="NotSibling,UnknownId">
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -122,7 +122,7 @@
         android:id="@+id/checkbox_esc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="50dp"
         android:text="Escuela"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />

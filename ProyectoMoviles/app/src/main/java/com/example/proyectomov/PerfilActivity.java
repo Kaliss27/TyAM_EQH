@@ -130,7 +130,7 @@ public class PerfilActivity extends FragmentActivity implements SensorEventListe
                 return true;
 
             case R.id.map:
-                nextAct= new Intent(this,MapsActivity.class);
+                nextAct= new Intent(this,MapaListActivity.class);
                 startActivity(nextAct);
                 return true;
 

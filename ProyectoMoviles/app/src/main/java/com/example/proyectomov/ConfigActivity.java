@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
@@ -43,6 +44,47 @@ public class ConfigActivity extends Activity implements SensorEventListener
     {
         getMenuInflater ().inflate (R.menu.top_app_bar, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        Intent nextAct;
+        switch (item.getItemId())
+        {
+            case R.id.perfil:
+                nextAct= new Intent(this,PerfilActivity.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.my_list:
+                nextAct= new Intent(this,MyListActivity.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.my_cont:
+                nextAct= new Intent(this,MyContActivity.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.recibidas:
+                nextAct= new Intent(this,RecepcionesActivity.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.map:
+                nextAct= new Intent(this,MapaListActivity.class);
+                startActivity(nextAct);
+                return true;
+
+            case R.id.config:
+                nextAct= new Intent(this,ConfigActivity.class);
+                startActivity(nextAct);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
