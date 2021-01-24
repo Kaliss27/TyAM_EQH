@@ -226,7 +226,7 @@ public class RClinica extends Activity implements SensorEventListener
                             Uri uri = t.getResult ();
                             if (uri == null) return;
 
-                            Toast.makeText (getBaseContext (), "Download URL " + uri.toString (), Toast.LENGTH_LONG).show ();
+                           // Toast.makeText (getBaseContext (), "Download URL " + uri.toString (), Toast.LENGTH_LONG).show ();
                             Log.i ("TYAM", "Download URL " + uri.toString ());
                         });
                     }

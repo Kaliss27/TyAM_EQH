@@ -228,7 +228,7 @@ public class RPerfilActivity extends Activity implements SensorEventListener
                             if (uri == null) return;
 
                             pPuri=getUriTask.toString();
-                            Toast.makeText (getBaseContext (), "Download URL " + uri.toString (), Toast.LENGTH_LONG).show ();
+                          //  Toast.makeText (getBaseContext (), "Download URL " + uri.toString (), Toast.LENGTH_LONG).show ();
                             Log.i ("TYAM", "Download URL " + uri.toString ());
                         });
                     }

@@ -64,6 +64,15 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>!-->
         </activity>
+        <activity
+            android:name=".PerfilClinicaActivity"
+            android:label="@string/page_title"
+            android:screenOrientation="portrait">
+            <!--<intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>!-->
+        </activity>
 
         <activity
             android:name=".MapsActivity"

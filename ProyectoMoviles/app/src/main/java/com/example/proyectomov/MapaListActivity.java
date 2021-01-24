@@ -31,6 +31,7 @@ import java.util.Vector;
 
 public class MapaListActivity extends Activity {
     FirebaseAuth auth;
+    Vector<Clinica> vClinics;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class MapaListActivity extends Activity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-        Vector<Clinica> vClinics = new Vector<>();
+        vClinics = new Vector<>();
 
         //auth = FirebaseAuth.getInstance ();
         //iniciarSesion ();
@@ -54,16 +55,13 @@ public class MapaListActivity extends Activity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference clinicas = database.getReference("Clinica");
 
-        // el evento SingleValueEvent itera por todos los elemento de la roma donde se
-        // invoca, y cada subelemento es referenciado mediante el objeto DataSnapShot
+
         clinicas.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // datasnapShot hace referencia a la rama SONGS
-                // el método getChildren devuelve cada subelemento TRACK
+
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    // getValue devuelve referencia al objeto contenido en cada TRACK
-                    // y lo convierte al tipo de datos indicado en el parámetro
+
                     Clinica c = item.getValue(Clinica.class);
                     vClinics.add(c);
                     Log.d("TAG", c.nombreC + " " + c.phoneC);
@@ -86,7 +84,6 @@ public class MapaListActivity extends Activity {
 }
 
 class ClinicAdapter extends RecyclerView.Adapter<ClinicAdapter.MyViewHolder> {
-
 
     Vector<Clinica> data;
 

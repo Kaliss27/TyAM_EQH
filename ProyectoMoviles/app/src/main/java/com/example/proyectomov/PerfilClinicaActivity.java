@@ -2,6 +2,8 @@ package com.example.proyectomov;
 
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -9,14 +11,29 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
@@ -25,6 +42,11 @@ public class PerfilClinicaActivity extends FragmentActivity implements SensorEve
 {
     SensorManager sensorManager;
     Sensor sensor;
+
+    Clinica clinica;
+    FirebaseUser user;
+
+    ImageView iv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +60,32 @@ public class PerfilClinicaActivity extends FragmentActivity implements SensorEve
 
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        FirebaseStorage storage = FirebaseStorage.getInstance ();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        StorageReference folder = storage.getReference ("clinicsPhotos");
+        StorageReference imageFile = folder.child (user.getUid()+"_cP.png");
+
+        iv=findViewById(R.id.imageView3);
+
+        final long SIZE_BUFFER = 1024 * 1024;
+        imageFile.getBytes (SIZE_BUFFER)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess (byte[] bytes) {
+                        Bitmap bitmap = BitmapFactory.decodeByteArray (bytes, 0, bytes.length);
+                        iv.setImageBitmap (bitmap);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure (@NonNull Exception e) {
+                Toast.makeText (getBaseContext (), "Error: " + e.getMessage (), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
     }
     @Override
     protected void onStart() {

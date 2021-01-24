@@ -56,7 +56,7 @@ public class LoginActivity extends Activity implements SensorEventListener {
                             name = user.getDisplayName ();
                         }
 
-                        Toast.makeText ( this, "Usuario " + name, Toast.LENGTH_LONG).show ();
+                        //Toast.makeText ( this, "Usuario " + name, Toast.LENGTH_LONG).show ();
                         Intent intent = new Intent(this, MapsActivity.class);
                         startActivity (intent);
 
