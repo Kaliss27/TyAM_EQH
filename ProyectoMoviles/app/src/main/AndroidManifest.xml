@@ -75,6 +75,16 @@
             </intent-filter>!-->
         </activity>
 
+        <activity
+            android:name=".MapaListActivity"
+            android:label="@string/page_title"
+            android:screenOrientation="portrait">
+            <!-- <intent-filter>
+                 <category android:name="android.intent.category.LAUNCHER" />
+                 <action android:name="android.intent.action.MAIN" />
+             </intent-filter>!-->
+        </activity>
+
         <activity android:name=".RPerfilActivity"
             android:screenOrientation="portrait"
             android:label="Med-UV">

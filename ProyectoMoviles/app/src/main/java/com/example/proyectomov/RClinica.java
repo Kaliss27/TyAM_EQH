@@ -385,4 +385,26 @@ class Clinica
     public String phoneC;
     public double lat;
     public double lng;
+
+
+    public void setNombreC(String nombreC) {
+        this.nombreC = nombreC;
+    }
+
+    public void setDirrC(String dirrC) {
+        this.dirrC = dirrC;
+    }
+
+    public void setPhoneC(String phoneC) {
+        this.phoneC = phoneC;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
 }

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toolbar;
 
@@ -59,6 +60,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Toolbar toolbar = findViewById (R.id.toolbar);
         setActionBar (Objects.requireNonNull (toolbar));
         toolbar.setNavigationIcon(R.drawable.ic_action_name); //Define icono para toolbar
+
+        Button btn=findViewById(R.id.button);
+        btn.setOnClickListener(v->{
+            Intent intML=new Intent(this,MapaListActivity.class);
+            startActivity(intML);
+        });
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
